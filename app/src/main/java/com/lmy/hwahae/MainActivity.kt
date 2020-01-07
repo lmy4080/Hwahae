@@ -2,6 +2,7 @@ package com.lmy.hwahae
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -15,8 +16,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         initSpinner()
+        initSearchView()
     }
 
+    // init Spinner
     private fun initSpinner() {
 
         val spinnerAdapter = ArrayAdapter(this, R.layout.main_spinner_main_item, SkinTypes.getAllSkinTypes())
@@ -44,5 +47,23 @@ class MainActivity : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<*>) {
             }
         }
+    }
+
+    // init SearchView
+    private fun initSearchView() {
+
+        sv_search_item.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                Log.d("test", newText)
+                return false
+            }
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+                // task HERE
+                Log.d("test", query)
+                return false
+            }
+        })
     }
 }
