@@ -5,4 +5,4 @@
     android:gravity="center_horizontal|center_vertical"
     android:textSize="@dimen/app_textSize"
     android:textColor="@android:color/black"
-    android:background="@drawable/main_spinner_dropdown_item_border"/>
+    android:background="@drawable/main_spinner_border"/>

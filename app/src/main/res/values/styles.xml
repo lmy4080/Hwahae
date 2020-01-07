@@ -11,7 +11,7 @@
     <!-- MainActivity Custom Theme -->
     <style name="MainActivityThemeCustom" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="android:statusBarColor">#8332F5</item>
+        <item name="android:statusBarColor">@color/main_toolbar_bg_color</item>
     </style>
 
     <!-- MainActivity SearchView Custom Theme -->
