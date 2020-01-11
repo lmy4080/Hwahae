@@ -2,14 +2,14 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle">
-            <stroke android:width="0.5dp" android:color="@color/colorGray" />
+            <stroke android:width="@dimen/layer_list_item_medium" android:color="@color/colorGray" />
             <solid android:color="@android:color/white" />
         </shape>
     </item>
 
-    <item android:top="0.5dp" android:bottom="0.5dp">
+    <item android:top="@dimen/layer_list_item_medium" android:bottom="@dimen/layer_list_item_medium">
         <shape android:shape="rectangle">
-            <stroke android:width="0.5dp" android:color="@color/colorWhiteTransparent" />
+            <stroke android:width="@dimen/layer_list_item_medium" android:color="@color/colorWhiteTransparent" />
             <solid android:color="@android:color/transparent" />
         </shape>
     </item>

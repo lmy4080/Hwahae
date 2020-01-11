@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- common -->
-        <dimen name="app_textSize">12dp</dimen>
+    <!-- margin sizes -->
+    <dimen name="margin_8dp">8dp</dimen>
+    <dimen name="margin_16dp">16dp</dimen>
+
+    <!-- font sizes -->
+    <dimen name="font_small">12sp</dimen>
+    <dimen name="font_medium">16sp</dimen>
+    <dimen name="font_large">24sp</dimen>
+
+    <!-- corner radius sizes -->
+    <dimen name="radius_small">10dp</dimen>
+    <dimen name="radius_medium">20dp</dimen>
+    <dimen name="radius_large">30dp</dimen>
+
+    <!-- layer_list item sizes -->
+    <dimen name="layer_list_item_small">0.1dp</dimen>
+    <dimen name="layer_list_item_medium">0.5dp</dimen>
+    <dimen name="layer_list_item_large">1.0dp</dimen>
+
+    <!-- typical sizes of views -->
+    <dimen name="cl_header_height">30dp</dimen>
+    <dimen name="sp_skin_type_width">100dp</dimen>
 </resources>
