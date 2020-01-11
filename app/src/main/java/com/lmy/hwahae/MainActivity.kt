@@ -6,6 +6,8 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.google.android.material.appbar.AppBarLayout
 import com.lmy.hwahae.common.SkinTypes
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -17,13 +19,14 @@ class MainActivity : AppCompatActivity() {
 
         initSpinner()
         initSearchView()
+        disableAppbarDragEvent()
     }
 
     // init Spinner
     private fun initSpinner() {
 
-        val spinnerAdapter = ArrayAdapter(this, R.layout.main_spinner_main_item, SkinTypes.getAllSkinTypes())
-        spinnerAdapter.setDropDownViewResource(R.layout.main_spinner_dropdown_item)
+        val spinnerAdapter = ArrayAdapter(this, R.layout.sp_skin_type_item, SkinTypes.getAllSkinTypes())
+        spinnerAdapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice)
         sp_skin_type.adapter = spinnerAdapter
 
         sp_skin_type.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -55,15 +58,30 @@ class MainActivity : AppCompatActivity() {
         sv_search_item.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
 
             override fun onQueryTextChange(newText: String): Boolean {
-                Log.d("test", newText)
+                Log.d("DEBUG", newText)
                 return false
             }
 
             override fun onQueryTextSubmit(query: String): Boolean {
                 // task HERE
-                Log.d("test", query)
+                Log.d("DEBUG", query)
                 return false
             }
         })
+    }
+
+    // disable AppbarLayout Drag Event
+    private fun disableAppbarDragEvent() {
+
+        if (abl.getLayoutParams() != null) {
+            val layoutParams = abl.getLayoutParams() as CoordinatorLayout.LayoutParams
+            val appBarLayoutBehaviour = AppBarLayout.Behavior()
+            appBarLayoutBehaviour.setDragCallback(object : AppBarLayout.Behavior.DragCallback() {
+                override fun canDrag(appBarLayout: AppBarLayout): Boolean {
+                    return false
+                }
+            })
+            layoutParams.behavior = appBarLayoutBehaviour
+        }
     }
 }
