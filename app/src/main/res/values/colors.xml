@@ -7,5 +7,5 @@
     <color name="colorWhiteTransparent">#FFDDDDDD</color>
 
     <!-- purple -->
-    <color name="toolbar_bg">#8332F5</color>
+    <color name="navigationbar_bg">#9013FE</color>
 </resources>

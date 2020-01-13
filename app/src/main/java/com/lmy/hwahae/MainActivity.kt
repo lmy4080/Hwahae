@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -17,12 +18,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        hideStatusBar()
         initSpinner()
         initSearchView()
         disableAppbarDragEvent()
     }
 
-    // init Spinner
+    // hide the status bar
+    private fun hideStatusBar() {
+
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+    }
+
+    // init the spinner
     private fun initSpinner() {
 
         val spinnerAdapter = ArrayAdapter(this, R.layout.sp_skin_type_item, SkinTypes.getAllSkinTypes())
@@ -52,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // init SearchView
+    // init the searchView
     private fun initSearchView() {
 
         sv_search_item.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
@@ -70,7 +78,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    // disable AppbarLayout Drag Event
+    // disable the appbarLayout drag event
     private fun disableAppbarDragEvent() {
 
         if (abl.getLayoutParams() != null) {
