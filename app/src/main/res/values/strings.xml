@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Hwahae</string>
-    <string name="sv_search_item_qeury_hint">검색</string>
+    <string name="sv_search_query_hint">검색</string>
     <string name="tv_time_text">9:41</string>
+    <string name="appbar_scrolling_view_behavior" translatable="false">
+        com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior
+    </string>
 </resources>

@@ -1,157 +1,320 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_layout_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15"/>
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/navigationbar_bg"
-        app:layout_collapseMode="pin">
+        android:id="@+id/cl_navigation_bar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/gl_layout_horizontal">
 
-        <LinearLayout
-            android:id="@+id/ll_statusbar_left"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_navigation_bar_middle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginStart="@dimen/margin_24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/ll_statusbar_right"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintGuide_percent="0.475"/>
 
-            <TextView
-                android:id="@+id/tv_time"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_status_bar"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/colorTheme"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/gl_navigation_bar_middle">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_time_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.20"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_time_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.80"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_time_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.05"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_time_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.2"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_icon_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.325"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_icon_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.675"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_cellular_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.76"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_cellular_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.815"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_wifi_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.82"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_wifi_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.87"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_battery_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.88"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_battery_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.94"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:text="@string/tv_time_text"
-                android:textSize="@dimen/tv_time_text_size"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
                 android:fontFamily="@font/sf_pro_text"
-                android:gravity="center_vertical|start" />
+                android:gravity="center_vertical|center_horizontal"
+                app:layout_constraintTop_toTopOf="@id/gl_time_top"
+                app:layout_constraintStart_toStartOf="@id/gl_time_left"
+                app:layout_constraintEnd_toEndOf="@id/gl_time_right"
+                app:layout_constraintBottom_toBottomOf="@id/gl_time_bottom"
+                style="@style/TextAppearance.AppCompat.Medium" />
 
-        </LinearLayout>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/baseline_signal_cellular_alt_24"
+                app:layout_constraintTop_toTopOf="@id/gl_icon_top"
+                app:layout_constraintStart_toStartOf="@id/gl_cellular_left"
+                app:layout_constraintEnd_toEndOf="@id/gl_cellular_right"
+                app:layout_constraintBottom_toBottomOf="@id/gl_icon_bottom"/>
 
-        <LinearLayout
-            android:id="@+id/ll_statusbar_right"
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/baseline_wifi_24"
+                app:layout_constraintTop_toTopOf="@id/gl_icon_top"
+                app:layout_constraintStart_toStartOf="@id/gl_wifi_left"
+                app:layout_constraintEnd_toEndOf="@id/gl_wifi_right"
+                app:layout_constraintBottom_toBottomOf="@id/gl_icon_bottom"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/baseline_battery_full_24"
+                app:layout_constraintTop_toTopOf="@id/gl_icon_top"
+                app:layout_constraintStart_toStartOf="@id/gl_battery_left"
+                app:layout_constraintEnd_toEndOf="@id/gl_battery_right"
+                app:layout_constraintBottom_toBottomOf="@id/gl_icon_bottom"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_search_field"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center_vertical|end"
-            android:layout_marginEnd="@dimen/margin_24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="0dp"
+            android:background="@color/colorTheme"
+            app:layout_constraintTop_toTopOf="@id/gl_navigation_bar_middle"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/ll_statusbar_left"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintBottom_toBottomOf="parent">
 
-            <ImageView
-                android:layout_width="@dimen/icon_cellular_width"
-                android:layout_height="@dimen/icon_cellular_height"
-                android:background="@drawable/baseline_signal_cellular_alt_24"/>
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_search_field_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.0"/>
 
-            <ImageView
-                android:layout_width="@dimen/icon_wifi_width"
-                android:layout_height="@dimen/icon_wifi_height"
-                android:layout_marginLeft="@dimen/margin_2dp"
-                android:background="@drawable/baseline_wifi_24"/>
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_search_field_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.03"/>
 
-            <ImageView
-                android:layout_width="@dimen/icon_battery_width"
-                android:layout_height="@dimen/icon_battery_height"
-                android:layout_marginLeft="@dimen/margin_4dp"
-                android:background="@drawable/baseline_battery_full_24"/>
-            
-        </LinearLayout>
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_search_field_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.97"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_search_field_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.8"/>
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/sv_search"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/sv_search_item_bg"
+                android:elevation="2dp"
+                android:focusable="false"
+                app:iconifiedByDefault="false"
+                app:defaultQueryHint="@string/sv_search_query_hint"
+                app:layout_constraintTop_toTopOf="@id/gl_search_field_top"
+                app:layout_constraintStart_toStartOf="@id/gl_search_field_left"
+                app:layout_constraintEnd_toStartOf="@id/gl_search_field_right"
+                app:layout_constraintBottom_toBottomOf="@id/gl_search_field_bottom">
+
+            </androidx.appcompat.widget.SearchView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/navigationbar_bg"
-        app:layout_collapseMode="pin">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/white"
+        app:layout_constraintTop_toTopOf="@id/gl_layout_horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <SearchView
-            android:id="@+id/sv_search_item"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/margin_12dp"
-            android:layout_marginEnd="@dimen/margin_12dp"
-            android:layout_marginBottom="@dimen/margin_12dp"
-            android:background="@drawable/sv_search_item_bg"
-            android:queryBackground="@android:color/transparent"
-            android:queryHint="@string/sv_search_item_qeury_hint"
-            android:iconifiedByDefault="false"
-            android:focusable="false"
-            android:theme="@style/SearchViewCustomTheme"/>
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/cdl_product"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-    </androidx.appcompat.widget.Toolbar>
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/abl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
-            <LinearLayout
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/abl_filter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                android:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/cl_header"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/cl_header_height"
-                    android:background="@android:color/white">
+                    android:layout_height="match_parent"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-                    <FrameLayout
-                        android:id="@+id/fl_empty"
-                        android:layout_width="0dp"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="@dimen/margin_12dp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/sp_skin_type"/>
+                        android:background="@android:color/white">
 
-                    <Spinner
-                        android:id="@+id/sp_skin_type"
-                        android:layout_width="@dimen/sp_skin_type_width"
-                        android:layout_height="0dp"
-                        android:spinnerMode="dialog"
-                        android:layout_marginEnd="@dimen/margin_12dp"
-                        android:gravity="end|center_vertical"
-                        android:background="@android:color/transparent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/fl_empty"
-                        app:layout_constraintEnd_toEndOf="parent"/>
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/gl_spinner_top"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.24"/>
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/gl_spinner_left"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.69"/>
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/gl_spinner_right"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.97"/>
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/gl_spinner_bottom"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.76"/>
+
+                        <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/sp_skin_type"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:spinnerMode="dialog"
+                            android:background="@android:color/transparent"
+                            app:layout_constraintTop_toTopOf="@id/gl_spinner_top"
+                            app:layout_constraintStart_toStartOf="@id/gl_spinner_left"
+                            app:layout_constraintEnd_toStartOf="@+id/gl_spinner_right"
+                            app:layout_constraintBottom_toBottomOf="@id/gl_spinner_bottom"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </LinearLayout>
+            </com.google.android.material.appbar.AppBarLayout>
 
-        </com.google.android.material.appbar.AppBarLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rv_product_item_bg"
+                android:clipToPadding="false"
+                android:scrollbars="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_product_item"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rv_product_item_bg"
-            android:clipToPadding="false"
-            android:scrollbars="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
