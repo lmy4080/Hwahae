@@ -1,12 +1,12 @@
 package com.lmy.hwahae
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.res.Resources
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.appbar.AppBarLayout
 import com.lmy.hwahae.common.SkinTypes
@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         hideStatusBar()
+        resizeAppBarLayout()
         initSpinner()
         initSearchView()
         disableAppbarDragEvent()
@@ -30,32 +31,25 @@ class MainActivity : AppCompatActivity() {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
     }
 
+    // resize the app bar layout
+    private fun resizeAppBarLayout() {
+
+        abl_filter.layoutParams.height = Resources.getSystem().getDisplayMetrics().heightPixels / 15
+    }
+
     // init the spinner
     private fun initSpinner() {
 
-        val spinnerAdapter = ArrayAdapter(this, R.layout.sp_skin_type_item, SkinTypes.getAllSkinTypes())
-        spinnerAdapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice)
-        sp_skin_type.adapter = spinnerAdapter
+        val spinnerFilterAdapter = ArrayAdapter(this, R.layout.sp_skin_type_item, SkinTypes.getAllSkinTypes())
+        spinnerFilterAdapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice)
+        sp_skin_type.adapter = spinnerFilterAdapter
 
         sp_skin_type.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-
-                //아이템이 클릭 되면 맨 위부터 position 0번부터 순서대로 동작하게 됩니다.
-                when(position) {
-                    0   ->  {
-                    }
-                    1   ->  {
-                    }
-                    2   -> {
-                    }
-                    3   -> {
-                    }
-                    //...
-                    else -> {
-                    }
-                }
+                println("onItemSelected")
             }
             override fun onNothingSelected(parent: AdapterView<*>) {
+                println("onNothingSelected")
             }
         }
     }
@@ -63,16 +57,14 @@ class MainActivity : AppCompatActivity() {
     // init the searchView
     private fun initSearchView() {
 
-        sv_search_item.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
-
+        sv_search.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String): Boolean {
-                Log.d("DEBUG", newText)
+                println("onQueryTextChange")
                 return false
             }
 
             override fun onQueryTextSubmit(query: String): Boolean {
-                // task HERE
-                Log.d("DEBUG", query)
+                println("onQueryTextSubmit")
                 return false
             }
         })
@@ -81,11 +73,13 @@ class MainActivity : AppCompatActivity() {
     // disable the appbarLayout drag event
     private fun disableAppbarDragEvent() {
 
-        if (abl.getLayoutParams() != null) {
-            val layoutParams = abl.getLayoutParams() as CoordinatorLayout.LayoutParams
+        if (abl_filter.layoutParams != null) {
+            val layoutParams = abl_filter.getLayoutParams() as CoordinatorLayout.LayoutParams
             val appBarLayoutBehaviour = AppBarLayout.Behavior()
+
             appBarLayoutBehaviour.setDragCallback(object : AppBarLayout.Behavior.DragCallback() {
                 override fun canDrag(appBarLayout: AppBarLayout): Boolean {
+                    println("canDrag")
                     return false
                 }
             })
