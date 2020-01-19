@@ -18,26 +18,42 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        /**
+         * hide the status bar
+         */
         hideStatusBar()
+
+        /**
+         * resize the app bar layout
+         */
         resizeAppBarLayout()
+
+        /**
+         * init the spinner
+         */
         initSpinner()
+
+        /**
+         * init the searchView
+         */
         initSearchView()
+
+        /**
+         * disable the appbarLayout drag event
+         */
         disableAppbarDragEvent()
     }
 
-    // hide the status bar
     private fun hideStatusBar() {
 
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
     }
 
-    // resize the app bar layout
     private fun resizeAppBarLayout() {
 
-        abl_filter.layoutParams.height = Resources.getSystem().getDisplayMetrics().heightPixels / 15
+        abl_filter.layoutParams.height = Resources.getSystem().displayMetrics.heightPixels / 15
     }
 
-    // init the spinner
     private fun initSpinner() {
 
         val spinnerFilterAdapter = ArrayAdapter(this, R.layout.sp_skin_type_item, SkinTypes.getAllSkinTypes())
@@ -54,7 +70,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // init the searchView
     private fun initSearchView() {
 
         sv_search.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
@@ -70,7 +85,6 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    // disable the appbarLayout drag event
     private fun disableAppbarDragEvent() {
 
         if (abl_filter.layoutParams != null) {

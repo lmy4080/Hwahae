@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
-        <shape android:shape="rectangle">
-            <stroke android:width="@dimen/layer_list_item_medium" android:color="@color/colorGray" />
-            <solid android:color="@android:color/white" />
+        <shape android:shape="rectangle" >
+            <solid android:color="#FFFFFF" />
         </shape>
     </item>
-
-    <item android:top="@dimen/layer_list_item_medium" android:bottom="@dimen/layer_list_item_medium">
-        <shape android:shape="rectangle">
-            <stroke android:width="@dimen/layer_list_item_medium" android:color="@color/colorWhiteTransparent" />
+    <item  android:bottom="-2dp">
+        <shape>
             <solid android:color="@android:color/transparent" />
+            <stroke
+                android:width="0.5dp"
+                android:color="#FFDDDDDD" />
         </shape>
     </item>
 </layer-list>
