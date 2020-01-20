@@ -6,18 +6,22 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.appbar.AppBarLayout
 import com.lmy.hwahae.R
 import com.lmy.hwahae.common.SkinTypes
+import com.lmy.hwahae.ui.adpaters.IndexViewAdapter
 import com.lmy.hwahae.viewmodel.IndexViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class IndexViewActivity : AppCompatActivity() {
 
     private lateinit var mIndexViewModel: IndexViewModel
+    private var mAdapter = IndexViewAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,11 +56,18 @@ class IndexViewActivity : AppCompatActivity() {
          * Disable the appbarLayout drag event
          */
         disableAppbarDragEvent()
-
     }
 
     private fun subscribeUi() {
         mIndexViewModel = ViewModelProviders.of(this)[IndexViewModel::class.java]
+
+        mIndexViewModel.getProductList().observe(this, Observer { itemList ->
+            mAdapter.submitList(itemList)
+        })
+
+        mIndexViewModel.getNetworkState().observe(this, Observer { networkState ->
+            Toast.makeText(this, networkState.toString(), Toast.LENGTH_LONG).show()
+        })
     }
 
     private fun hideStatusBar() {
