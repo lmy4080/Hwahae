@@ -1,12 +1,15 @@
 package com.lmy.hwahae.datasoruce.model
 
+/**
+ * Model for IndexView
+ */
 data class IndexViewModel (
     var statusCode: Int,
-    var body: List<Product>
+    var body: List<IndexViewProduct>
 
 )
 
-data class Product(
+data class IndexViewProduct (
     var id: Int,
     var price: String,
     var oily_score: Int,
