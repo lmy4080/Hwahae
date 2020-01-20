@@ -3,7 +3,7 @@ package com.lmy.hwahae.datasoruce.model
 /**
  * Model for IndexView
  */
-data class IndexViewModel (
+data class IndexViewDataModel (
     var statusCode: Int,
     var body: List<IndexViewProduct>
 

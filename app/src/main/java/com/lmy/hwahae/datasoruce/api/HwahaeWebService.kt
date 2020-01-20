@@ -1,6 +1,6 @@
 package com.lmy.hwahae.datasoruce.api
 
-import com.lmy.hwahae.datasoruce.model.IndexViewModel
+import com.lmy.hwahae.datasoruce.model.IndexViewDataModel
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -18,7 +18,7 @@ interface HwahaeWebService {
         @Query("skin_type") skin_type: String,
         @Query("page") page: Int,
         @Query("search") search: String?
-    ) : IndexViewModel
+    ) : IndexViewDataModel
 
     /**
      * Create retrofit-service for backend-api server
