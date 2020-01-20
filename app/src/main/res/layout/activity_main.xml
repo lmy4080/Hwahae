@@ -287,7 +287,7 @@
                             android:orientation="horizontal"
                             app:layout_constraintGuide_percent="0.76"/>
 
-                        <androidx.appcompat.widget.AppCompatSpinner
+                        <com.lmy.hwahae.ui.views.IndexViewCustomSpinner
                             android:id="@+id/sp_skin_type"
                             android:layout_width="0dp"
                             android:layout_height="0dp"

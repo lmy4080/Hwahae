@@ -23,6 +23,7 @@ class IndexViewActivity : AppCompatActivity() {
 
     private lateinit var mIndexViewModel: IndexViewModel
     private var mAdapter = IndexViewAdapter()
+    private var isFirstLoaded: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,14 +89,26 @@ class IndexViewActivity : AppCompatActivity() {
 
     private fun initSpinner() {
 
-        val spinnerFilterAdapter = ArrayAdapter(this,
-            R.layout.sp_skin_type_item, SkinTypes.getAllSkinTypes())
+        val spinnerFilterAdapter = ArrayAdapter(this, R.layout.sp_skin_type_item, SkinTypes.getAllSkinTypes())
         spinnerFilterAdapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice)
         sp_skin_type.adapter = spinnerFilterAdapter
 
         sp_skin_type.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 println("onItemSelected")
+
+                if(isFirstLoaded) {
+                    isFirstLoaded = false
+                }
+                else {
+
+                    /* Set the current skin type with user's value and fetch new data */
+                    mIndexViewModel.setSkinType(position.toString())
+
+                    /* ui processing */
+                    sv_search.setQuery("",false) // clear a search query if remained
+                    sv_search.clearFocus() // clear the focus of searchView
+                }
             }
             override fun onNothingSelected(parent: AdapterView<*>) {
                 println("onNothingSelected")
