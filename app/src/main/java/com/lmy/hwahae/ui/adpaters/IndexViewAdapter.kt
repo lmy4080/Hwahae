@@ -12,13 +12,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.lmy.hwahae.R
 import com.lmy.hwahae.datasoruce.model.IndexViewProduct
+import kotlinx.android.synthetic.main.layout_index_view_items.view.*
 import java.text.NumberFormat
 import java.util.*
 
 class IndexViewAdapter: PagedListAdapter<IndexViewProduct, IndexViewAdapter.ItemViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val layoutView: LinearLayout = LayoutInflater.from(parent.context).inflate(R.layout.item, parent, false) as LinearLayout
+        val layoutView: LinearLayout = LayoutInflater.from(parent.context).inflate(R.layout.layout_index_view_items, parent, false) as LinearLayout
         resizeViewHolder(layoutView, parent)
         return ItemViewHolder(layoutView)
     }
