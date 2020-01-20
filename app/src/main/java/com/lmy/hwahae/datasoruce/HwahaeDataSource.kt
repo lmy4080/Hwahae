@@ -47,7 +47,7 @@ class HwahaeDataSource: PageKeyedDataSource<Int, IndexViewProduct>() {
         updateNetworkState(NetworkState.LOADING)
         CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
             try {
-                HwahaeWebService.service.getProductList(UiStatus.currentSkinType, INITIAL_PAGE_KEY, UiStatus.currentSearchQuery).apply {
+                HwahaeWebService.service.getProductList(UiStatus.currentSkinType, INITIAL_PAGE_KEY, UiStatus.currentSearchKeyword).apply {
                     withContext(Dispatchers.Main) {
                         callback.onResult(this@apply.body, 0, this@apply.body.size, null, INITIAL_PAGE_KEY+1)
                         updateNetworkState(NetworkState.DONE)
@@ -86,7 +86,7 @@ class HwahaeDataSource: PageKeyedDataSource<Int, IndexViewProduct>() {
         updateNetworkState(NetworkState.LOADING)
         CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
             try {
-                HwahaeWebService.service.getProductList(UiStatus.currentSkinType, params.key, UiStatus.currentSearchQuery).apply {
+                HwahaeWebService.service.getProductList(UiStatus.currentSkinType, params.key, UiStatus.currentSearchKeyword).apply {
                     withContext(Dispatchers.Main) {
                         callback.onResult(this@apply.body, params.key+1)
                         updateNetworkState(NetworkState.DONE)

@@ -7,5 +7,8 @@ object UiStatus {
      */
     private val allSkinTypes = arrayOf("oily" /* default */, "oily", "dry", "sensitive")
     var currentSkinType = allSkinTypes[0] /* default */
-    var currentSearchQuery: String? = null
+        set(skinTypeIndex) {
+            allSkinTypes[skinTypeIndex.toInt()]
+        }
+    var currentSearchKeyword: String? = null
 }

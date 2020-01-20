@@ -9,14 +9,14 @@ class HwahaeDataSourceFactory: DataSource.Factory<Int, IndexViewProduct>() {
     /**
      * Mutable LiveData holding ProductList
      */
-    val productListLiveData = MutableLiveData<HwahaeDataSource>()
+    val mProductListLiveData = MutableLiveData<HwahaeDataSource>()
 
     /**
      * Called when fetching new data from backend-api server
      */
     override fun create(): DataSource<Int, IndexViewProduct> {
         var productDataSource = HwahaeDataSource()
-        productListLiveData.postValue(productDataSource)
+        mProductListLiveData.postValue(productDataSource)
         return productDataSource
     }
 }
