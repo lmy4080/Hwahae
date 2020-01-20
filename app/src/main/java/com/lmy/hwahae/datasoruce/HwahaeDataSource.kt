@@ -1,9 +1,20 @@
 package com.lmy.hwahae.datasoruce
 
+import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
+import com.lmy.hwahae.datasoruce.api.NetworkState
 import com.lmy.hwahae.datasoruce.model.IndexViewProduct
 
 class HwahaeDataSource: PageKeyedDataSource<Int, IndexViewProduct>() {
+
+    /**
+     * Network State
+     */
+    var mState: MutableLiveData<NetworkState> = MutableLiveData()
+    private fun updateNetworkState(state: NetworkState) {
+        mState.postValue(state)
+    }
+
     override fun loadInitial(
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, IndexViewProduct>
