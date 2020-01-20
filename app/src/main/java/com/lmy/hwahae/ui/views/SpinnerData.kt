@@ -1,6 +1,6 @@
-package com.lmy.hwahae.common
+package com.lmy.hwahae.ui.views
 
-object SkinTypes {
+object SpinnerData {
     private var allSkinTypes: Array<String> = arrayOf("모든 피부 타입", "Oily", "Dry", "Sensitive")
     fun getAllSkinTypes() = allSkinTypes
 }

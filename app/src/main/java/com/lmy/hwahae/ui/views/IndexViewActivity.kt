@@ -14,7 +14,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.appbar.AppBarLayout
 import com.lmy.hwahae.R
-import com.lmy.hwahae.common.SkinTypes
 import com.lmy.hwahae.ui.adpaters.IndexViewAdapter
 import com.lmy.hwahae.viewmodel.IndexViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -89,7 +88,7 @@ class IndexViewActivity : AppCompatActivity() {
 
     private fun initSpinner() {
 
-        val spinnerFilterAdapter = ArrayAdapter(this, R.layout.sp_skin_type_item, SkinTypes.getAllSkinTypes())
+        val spinnerFilterAdapter = ArrayAdapter(this, R.layout.sp_skin_type_item, SpinnerData.getAllSkinTypes())
         spinnerFilterAdapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice)
         sp_skin_type.adapter = spinnerFilterAdapter
 
