@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.appbar.AppBarLayout
 import com.lmy.hwahae.R
 import com.lmy.hwahae.common.SkinTypes
@@ -51,6 +52,11 @@ class IndexViewActivity : AppCompatActivity() {
          * Init the searchView
          */
         initSearchView()
+
+        /**
+         * Init the recyclerView
+         */
+        initRecyclerView()
 
         /**
          * Disable the appbarLayout drag event
@@ -110,6 +116,14 @@ class IndexViewActivity : AppCompatActivity() {
                 return false
             }
         })
+    }
+
+    private fun initRecyclerView() {
+
+        rv_product.layoutManager = GridLayoutManager(this, 2)
+        rv_product.isNestedScrollingEnabled = true
+        rv_product.setHasFixedSize(false)
+        rv_product.adapter = mAdapter
     }
 
     private fun disableAppbarDragEvent() {
