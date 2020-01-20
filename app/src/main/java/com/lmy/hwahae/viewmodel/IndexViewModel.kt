@@ -1,12 +1,13 @@
 package com.lmy.hwahae.viewmodel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
 import com.lmy.hwahae.datasoruce.api.NetworkState
 import com.lmy.hwahae.datasoruce.model.IndexViewProduct
 import com.lmy.hwahae.repository.HwahaeRepository
 
-class IndexViewModel {
+class IndexViewModel : ViewModel() {
 
     private val mHwahaeRepository = HwahaeRepository()
 
