@@ -1,5 +1,6 @@
 package com.lmy.hwahae.ui.adpaters
 
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,8 +30,12 @@ class IndexViewAdapter: PagedListAdapter<IndexViewProduct, IndexViewAdapter.Item
      * 2.5 items per page in row
      */
     private fun resizeViewHolder(layoutView: LinearLayout, parent: ViewGroup) {
-        val layoutViewHeight = parent.findViewById<RecyclerView>(R.id.rv_product).layoutManager?.height
-        layoutView.layoutParams.height = (layoutViewHeight!! / 2.5).toInt()
+
+        var recyclerViewHeight = parent.findViewById<RecyclerView>(R.id.rv_product).layoutManager?.height!!
+        var appBarLayoutHeight = Resources.getSystem().displayMetrics.heightPixels / 15
+
+        recyclerViewHeight += appBarLayoutHeight
+        layoutView.layoutParams.height = (recyclerViewHeight / 2.5).toInt()
         layoutView.findViewById<ImageView>(R.id.iv_thumbnail).layoutParams.height = (layoutView.layoutParams.height / 1.5).toInt()
     }
 
