@@ -40,6 +40,10 @@ dependencies {
      */
     implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
 
+    /**
+     * Paging Library
+     */
+    implementation 'android.arch.paging:runtime:1.0.1'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
