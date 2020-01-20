@@ -1,4 +1,4 @@
-package com.lmy.hwahae
+package com.lmy.hwahae.ui.views
 
 import android.content.res.Resources
 import android.os.Bundle
@@ -9,10 +9,11 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.appbar.AppBarLayout
+import com.lmy.hwahae.R
 import com.lmy.hwahae.common.SkinTypes
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class IndexViewActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +57,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun initSpinner() {
 
-        val spinnerFilterAdapter = ArrayAdapter(this, R.layout.sp_skin_type_item, SkinTypes.getAllSkinTypes())
+        val spinnerFilterAdapter = ArrayAdapter(this,
+            R.layout.sp_skin_type_item, SkinTypes.getAllSkinTypes())
         spinnerFilterAdapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice)
         sp_skin_type.adapter = spinnerFilterAdapter
 

@@ -36,8 +36,8 @@ class HwahaeRepository {
     /**
      * Set the typed keyword by user for searching
      */
-    fun setSearchKeyword(searchQuery: String) {
-        UiStatus.currentSearchKeyword = searchQuery
+    fun setSearchKeyword(searchKeyword: String) {
+        UiStatus.currentSearchKeyword = searchKeyword
         fetchProductList()
     }
 
