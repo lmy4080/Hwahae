@@ -308,7 +308,7 @@
                 android:id="@+id/rv_product"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rv_product_item_bg"
+                android:background="@drawable/rv_index_view_bg"
                 android:clipToPadding="false"
                 android:scrollbars="vertical"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
