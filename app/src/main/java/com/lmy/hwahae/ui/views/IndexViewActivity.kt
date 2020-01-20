@@ -8,41 +8,55 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.appbar.AppBarLayout
 import com.lmy.hwahae.R
 import com.lmy.hwahae.common.SkinTypes
+import com.lmy.hwahae.viewmodel.IndexViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class IndexViewActivity : AppCompatActivity() {
+
+    private lateinit var mIndexViewModel: IndexViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         /**
-         * hide the status bar
+         * Subscribe Ui
+         */
+        subscribeUi()
+
+        /**
+         * Hide the status bar
          */
         hideStatusBar()
 
         /**
-         * resize the app bar layout
+         * Resize the app bar layout
          */
         resizeAppBarLayout()
 
         /**
-         * init the spinner
+         * Init the spinner
          */
         initSpinner()
 
         /**
-         * init the searchView
+         * Init the searchView
          */
         initSearchView()
 
         /**
-         * disable the appbarLayout drag event
+         * Disable the appbarLayout drag event
          */
         disableAppbarDragEvent()
+
+    }
+
+    private fun subscribeUi() {
+        mIndexViewModel = ViewModelProviders.of(this)[IndexViewModel::class.java]
     }
 
     private fun hideStatusBar() {
