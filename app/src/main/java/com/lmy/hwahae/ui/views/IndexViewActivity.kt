@@ -105,9 +105,11 @@ class IndexViewActivity : AppCompatActivity() {
                     /* Set the current skin type with user's value and fetch new data */
                     mIndexViewModel.setSkinType(position.toString())
 
-                    /* ui processing */
-                    sv_search.setQuery("",false) // clear a search query if remained
-                    sv_search.clearFocus() // clear the focus of searchView
+                    /* ui processing
+                     * clear the search keyword if remained
+                     * clear the focus of searchView */
+                    sv_search.setQuery("",false)
+                    sv_search.clearFocus()
                 }
             }
             override fun onNothingSelected(parent: AdapterView<*>) {
@@ -125,7 +127,16 @@ class IndexViewActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextSubmit(query: String): Boolean {
-                println("onQueryTextSubmit")
+
+                /* Set the current search keyword with user's value and fetch new data */
+                mIndexViewModel.setSearchKeyword(query)
+
+                /* ui processing
+                 * clear the search keyword if remained
+                 * expand the header */
+                abl_filter.setExpanded(true)
+                sv_search.clearFocus()
+
                 return false
             }
         })
