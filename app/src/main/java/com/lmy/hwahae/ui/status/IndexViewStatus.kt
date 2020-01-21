@@ -1,6 +1,6 @@
 package com.lmy.hwahae.ui.status
 
-object UiStatus {
+object IndexViewStatus {
 
     /**
      * Save the current status of Ui - filter value, search query

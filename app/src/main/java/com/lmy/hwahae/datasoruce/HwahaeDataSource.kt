@@ -4,7 +4,7 @@ import androidx.paging.PageKeyedDataSource
 import com.lmy.hwahae.datasoruce.api.HwahaeWebService
 import com.lmy.hwahae.datasoruce.status.NetworkStatus
 import com.lmy.hwahae.datasoruce.model.IndexViewProduct
-import com.lmy.hwahae.ui.status.UiStatus
+import com.lmy.hwahae.ui.status.IndexViewStatus
 import kotlinx.coroutines.*
 import java.net.SocketTimeoutException
 
@@ -38,7 +38,7 @@ class HwahaeDataSource: PageKeyedDataSource<Int, IndexViewProduct>() {
         NetworkStatus.updateNetworkState(NetworkStatus.State.LOADING)
         CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
             try {
-                HwahaeWebService.service.getProductList(UiStatus.currentSkinType, INITIAL_PAGE_KEY, UiStatus.currentSearchKeyword).apply {
+                HwahaeWebService.service.getProductList(IndexViewStatus.currentSkinType, INITIAL_PAGE_KEY, IndexViewStatus.currentSearchKeyword).apply {
                     withContext(Dispatchers.Main) {
                         callback.onResult(this@apply.body, 0, this@apply.body.size, null, INITIAL_PAGE_KEY+1)
                         NetworkStatus.updateNetworkState(NetworkStatus.State.DONE)
@@ -77,7 +77,7 @@ class HwahaeDataSource: PageKeyedDataSource<Int, IndexViewProduct>() {
         NetworkStatus.updateNetworkState(NetworkStatus.State.LOADING)
         CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
             try {
-                HwahaeWebService.service.getProductList(UiStatus.currentSkinType, params.key, UiStatus.currentSearchKeyword).apply {
+                HwahaeWebService.service.getProductList(IndexViewStatus.currentSkinType, params.key, IndexViewStatus.currentSearchKeyword).apply {
                     withContext(Dispatchers.Main) {
                         callback.onResult(this@apply.body, params.key+1)
                         NetworkStatus.updateNetworkState(NetworkStatus.State.DONE)

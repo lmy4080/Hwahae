@@ -9,7 +9,7 @@ import com.lmy.hwahae.datasoruce.api.HwahaeWebService
 import com.lmy.hwahae.datasoruce.model.DetailViewProduct
 import com.lmy.hwahae.datasoruce.model.IndexViewProduct
 import com.lmy.hwahae.datasoruce.status.NetworkStatus
-import com.lmy.hwahae.ui.status.UiStatus
+import com.lmy.hwahae.ui.status.IndexViewStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -43,7 +43,7 @@ class HwahaeRepository {
      * Set the typed keyword by user for searching
      */
     fun setSearchKeyword(searchKeyword: String) {
-        UiStatus.currentSearchKeyword = searchKeyword
+        IndexViewStatus.currentSearchKeyword = searchKeyword
         fetchProductList()
     }
 
@@ -51,8 +51,8 @@ class HwahaeRepository {
      * Set the selected skin-type by user for searching
      */
     fun setSkinType(skinType: String) {
-        UiStatus.currentSkinType = skinType
-        UiStatus.currentSearchKeyword = null
+        IndexViewStatus.currentSkinType = skinType
+        IndexViewStatus.currentSearchKeyword = null
         fetchProductList()
     }
 
