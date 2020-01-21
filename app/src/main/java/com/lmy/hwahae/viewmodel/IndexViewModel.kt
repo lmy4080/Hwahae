@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
-import com.lmy.hwahae.datasoruce.api.NetworkState
+import com.lmy.hwahae.datasoruce.status.NetworkStatus
 import com.lmy.hwahae.datasoruce.model.DetailViewProduct
 import com.lmy.hwahae.datasoruce.model.IndexViewProduct
 import com.lmy.hwahae.repository.HwahaeRepository
@@ -35,7 +35,7 @@ class IndexViewModel : ViewModel() {
     /**
      * Return live-data holding the state of network
      */
-    fun getNetworkState(): LiveData<NetworkState> = mHwahaeRepository.getState()
+    fun getNetworkState(): LiveData<NetworkStatus.State> = mHwahaeRepository.getState()
 
     /**
      * Return live-data holding the detail of product

@@ -1,9 +1,8 @@
 package com.lmy.hwahae.datasoruce
 
-import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import com.lmy.hwahae.datasoruce.api.HwahaeWebService
-import com.lmy.hwahae.datasoruce.api.NetworkState
+import com.lmy.hwahae.datasoruce.status.NetworkStatus
 import com.lmy.hwahae.datasoruce.model.IndexViewProduct
 import com.lmy.hwahae.ui.status.UiStatus
 import kotlinx.coroutines.*
@@ -15,15 +14,6 @@ class HwahaeDataSource: PageKeyedDataSource<Int, IndexViewProduct>() {
      * Initial Page Key
      */
     private val INITIAL_PAGE_KEY = 1
-    
-    /**
-     * Network State
-     */
-    var mState: MutableLiveData<NetworkState> = MutableLiveData()
-
-    fun updateNetworkState(state: NetworkState) {
-        mState.postValue(state)
-    }
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, IndexViewProduct>) {
 
@@ -45,19 +35,19 @@ class HwahaeDataSource: PageKeyedDataSource<Int, IndexViewProduct>() {
         /**
          * Fetch data from backend-api server
          */
-        updateNetworkState(NetworkState.LOADING)
+        NetworkStatus.updateNetworkState(NetworkStatus.State.LOADING)
         CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
             try {
                 HwahaeWebService.service.getProductList(UiStatus.currentSkinType, INITIAL_PAGE_KEY, UiStatus.currentSearchKeyword).apply {
                     withContext(Dispatchers.Main) {
                         callback.onResult(this@apply.body, 0, this@apply.body.size, null, INITIAL_PAGE_KEY+1)
-                        updateNetworkState(NetworkState.DONE)
+                        NetworkStatus.updateNetworkState(NetworkStatus.State.DONE)
                     }
                 }
             }
             catch(throwable: Throwable) {
                 withContext(Dispatchers.Main) {
-                    updateNetworkState(NetworkState.FAILED)
+                    NetworkStatus.updateNetworkState(NetworkStatus.State.FAILED)
                 }
                 throw throwable
             }
@@ -84,19 +74,19 @@ class HwahaeDataSource: PageKeyedDataSource<Int, IndexViewProduct>() {
         /**
          * Fetch data from backend-api server
          */
-        updateNetworkState(NetworkState.LOADING)
+        NetworkStatus.updateNetworkState(NetworkStatus.State.LOADING)
         CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
             try {
                 HwahaeWebService.service.getProductList(UiStatus.currentSkinType, params.key, UiStatus.currentSearchKeyword).apply {
                     withContext(Dispatchers.Main) {
                         callback.onResult(this@apply.body, params.key+1)
-                        updateNetworkState(NetworkState.DONE)
+                        NetworkStatus.updateNetworkState(NetworkStatus.State.DONE)
                     }
                 }
             }
             catch(throwable: Throwable) {
                 withContext(Dispatchers.Main) {
-                    updateNetworkState(NetworkState.FAILED)
+                    NetworkStatus.updateNetworkState(NetworkStatus.State.FAILED)
                 }
                 throw throwable
             }
