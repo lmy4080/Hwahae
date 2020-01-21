@@ -16,12 +16,12 @@ import com.google.android.material.appbar.AppBarLayout
 import com.lmy.hwahae.R
 import com.lmy.hwahae.ui.adpaters.IndexViewAdapter
 import com.lmy.hwahae.ui.adpaters.IndexViewAdapterListener
-import com.lmy.hwahae.viewmodel.IndexViewModel
+import com.lmy.hwahae.viewmodel.SharedViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class IndexViewActivity : AppCompatActivity(), IndexViewAdapterListener {
 
-    private lateinit var mIndexViewModel: IndexViewModel
+    private lateinit var mIndexViewModel: SharedViewModel
     private var mAdapter = IndexViewAdapter(this)
     private var isFirstLoaded: Boolean = true
 
@@ -66,7 +66,7 @@ class IndexViewActivity : AppCompatActivity(), IndexViewAdapterListener {
     }
 
     private fun subscribeUi() {
-        mIndexViewModel = ViewModelProviders.of(this)[IndexViewModel::class.java]
+        mIndexViewModel = ViewModelProviders.of(this)[SharedViewModel::class.java]
 
         mIndexViewModel.getProductList().observe(this, Observer { itemList ->
             mAdapter.submitList(itemList)

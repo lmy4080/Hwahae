@@ -9,7 +9,7 @@ import com.lmy.hwahae.datasoruce.model.DetailViewProduct
 import com.lmy.hwahae.datasoruce.model.IndexViewProduct
 import com.lmy.hwahae.repository.HwahaeRepository
 
-class IndexViewModel : ViewModel() {
+class SharedViewModel : ViewModel() {
 
     private val mHwahaeRepository = HwahaeRepository()
 
