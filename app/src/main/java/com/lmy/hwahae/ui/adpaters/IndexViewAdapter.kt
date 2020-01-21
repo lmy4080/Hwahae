@@ -51,16 +51,16 @@ class IndexViewAdapter(onIndexViewAdapterListener: IndexViewAdapterListener): Pa
 
         init {
             var recyclerViewHeight = parentViewGroup.findViewById<RecyclerView>(R.id.rv_product).layoutManager?.height!!
-            var appBarLayoutHeight = Resources.getSystem().displayMetrics.heightPixels / 15
+            var appBarLayoutHeight = (Resources.getSystem().displayMetrics.heightPixels / 12.5).toInt()
             recyclerViewHeight += appBarLayoutHeight
 
             if(Configuration.ORIENTATION_LANDSCAPE == Resources.getSystem().configuration.orientation) {
                 /**
                  * Orientation Landscape
                  * Resize ViewHolder's height
-                 * 1.5 items per page in row
+                 * 1 item per page in row
                  */
-                itemView.layoutParams.height = (recyclerViewHeight / 1.5).toInt()
+                itemView.layoutParams.height = (recyclerViewHeight / 1)
                 itemView.findViewById<ImageView>(R.id.iv_thumbnail).layoutParams.height = (itemView.layoutParams.height / 1.5).toInt()
             }
             else{
