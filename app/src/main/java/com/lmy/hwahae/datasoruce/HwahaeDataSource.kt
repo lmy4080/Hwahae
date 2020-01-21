@@ -20,7 +20,8 @@ class HwahaeDataSource: PageKeyedDataSource<Int, IndexViewProduct>() {
      * Network State
      */
     var mState: MutableLiveData<NetworkState> = MutableLiveData()
-    private fun updateNetworkState(state: NetworkState) {
+
+    fun updateNetworkState(state: NetworkState) {
         mState.postValue(state)
     }
 

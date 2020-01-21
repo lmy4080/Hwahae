@@ -75,6 +75,10 @@ class IndexViewActivity : AppCompatActivity(), IndexViewAdapterListener {
         mIndexViewModel.getNetworkState().observe(this, Observer { networkState ->
             Toast.makeText(this, networkState.toString(), Toast.LENGTH_LONG).show()
         })
+
+        mIndexViewModel.getProductDetail().observe(this, Observer { productDetail ->
+            println("changed=${productDetail}")
+        })
     }
 
     private fun hideStatusBar() {
@@ -167,7 +171,6 @@ class IndexViewActivity : AppCompatActivity(), IndexViewAdapterListener {
     }
 
     override fun sendProductId(productId: Int?) {
-
-        println("${productId}")
+        mIndexViewModel.updateProductDetail(productId)
     }
 }

@@ -1,17 +1,19 @@
 package com.lmy.hwahae.datasoruce.api
 
+import com.lmy.hwahae.datasoruce.model.DetailViewModel
 import com.lmy.hwahae.datasoruce.model.IndexViewDataModel
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
 interface HwahaeWebService {
 
     /**
-     * GET request to backend-api server
+     * GET IndexView Product request to backend-api server
      */
     @GET("products")
     suspend fun getProductList(
@@ -19,6 +21,14 @@ interface HwahaeWebService {
         @Query("page") page: Int,
         @Query("search") search: String?
     ) : IndexViewDataModel
+
+    /**
+     * GET DetailView Product request to backend-api server
+     */
+    @GET("products/{id}")
+    suspend fun getProductDetail(
+        @Path("id") id: Int?
+    ) : DetailViewModel
 
     /**
      * Create retrofit-service for backend-api server
