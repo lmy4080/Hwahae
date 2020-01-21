@@ -17,7 +17,12 @@ import kotlinx.android.synthetic.main.layout_index_view_items.view.*
 import java.text.NumberFormat
 import java.util.*
 
-class IndexViewAdapter: PagedListAdapter<IndexViewProduct, IndexViewAdapter.ItemViewHolder>(DIFF_CALLBACK) {
+class IndexViewAdapter(onIndexViewAdapterListener: IndexViewAdapterListener): PagedListAdapter<IndexViewProduct, IndexViewAdapter.ItemViewHolder>(DIFF_CALLBACK) {
+
+    /**
+     * Call back when user clicks the product item to check it in detail
+     */
+    private val onIndexViewAdapterListener: IndexViewAdapterListener = onIndexViewAdapterListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val layoutView: LinearLayout = LayoutInflater.from(parent.context).inflate(R.layout.layout_index_view_items, parent, false) as LinearLayout
@@ -49,19 +54,25 @@ class IndexViewAdapter: PagedListAdapter<IndexViewProduct, IndexViewAdapter.Item
      */
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+        private var productId: Int? = null
+
         fun bind(product: IndexViewProduct?) {
+            productId = product?.id
             itemView.tv_title.text = product?.title
             itemView.tv_price.text = formatPrice(product?.price)
             Glide.with(itemView)
                 .asBitmap()
                 .load(product?.thumbnail_image?.toUri())
                 .into(itemView.iv_thumbnail)
+
+            itemView.ll_item.setOnClickListener {
+                onIndexViewAdapterListener.sendProductId(productId)
+            }
         }
 
         /* Format, ex) 10000 -> 10,000원 */
         private fun formatPrice(price: String?): String =
             NumberFormat.getNumberInstance(Locale.KOREA).format(price?.toInt()) + "원"
-
     }
 
     /**

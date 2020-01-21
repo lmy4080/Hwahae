@@ -15,13 +15,14 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.appbar.AppBarLayout
 import com.lmy.hwahae.R
 import com.lmy.hwahae.ui.adpaters.IndexViewAdapter
+import com.lmy.hwahae.ui.adpaters.IndexViewAdapterListener
 import com.lmy.hwahae.viewmodel.IndexViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
-class IndexViewActivity : AppCompatActivity() {
+class IndexViewActivity : AppCompatActivity(), IndexViewAdapterListener {
 
     private lateinit var mIndexViewModel: IndexViewModel
-    private var mAdapter = IndexViewAdapter()
+    private var mAdapter = IndexViewAdapter(this)
     private var isFirstLoaded: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -163,5 +164,10 @@ class IndexViewActivity : AppCompatActivity() {
             })
             layoutParams.behavior = appBarLayoutBehaviour
         }
+    }
+
+    override fun sendProductId(productId: Int?) {
+
+        println("${productId}")
     }
 }
