@@ -10,6 +10,11 @@
     <dimen name="radius_medium">20dp</dimen>
     <dimen name="radius_large">30dp</dimen>
 
+    <!-- font sizes -->
+    <dimen name="font_small">12sp</dimen>
+    <dimen name="font_medium">14sp</dimen>
+    <dimen name="font_large">24sp</dimen>
+
     <!-- layer_list item sizes -->
     <dimen name="layer_list_item_small">0.1dp</dimen>
     <dimen name="layer_list_item_medium">0.5dp</dimen>

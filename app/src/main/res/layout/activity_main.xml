@@ -126,6 +126,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:textSize="@dimen/font_medium"
                 android:text="@string/tv_time_text"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
@@ -134,8 +135,7 @@
                 app:layout_constraintTop_toTopOf="@id/gl_time_top"
                 app:layout_constraintStart_toStartOf="@id/gl_time_left"
                 app:layout_constraintEnd_toEndOf="@id/gl_time_right"
-                app:layout_constraintBottom_toBottomOf="@id/gl_time_bottom"
-                style="@style/TextAppearance.AppCompat.Medium" />
+                app:layout_constraintBottom_toBottomOf="@id/gl_time_bottom" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="0dp"
