@@ -311,6 +311,8 @@
                 android:background="@drawable/rv_product_index_view_bg"
                 android:clipToPadding="false"
                 android:scrollbars="vertical"
+                android:paddingLeft="@dimen/margin_medium"
+                android:paddingRight="@dimen/margin_medium"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>

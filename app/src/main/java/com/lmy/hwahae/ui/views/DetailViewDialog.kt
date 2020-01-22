@@ -24,7 +24,7 @@ class DetailViewDialog: BottomSheetDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
-        val dialog = AlertDialog.Builder(requireContext()).setView(R.layout.dialog_layout).create()
+        var dialog = AlertDialog.Builder(requireContext()).setView(R.layout.dialog_detail_view).create()
 
         /* Execute the animation of dialog */
         registerDialogAnimation(dialog)
@@ -84,22 +84,22 @@ class DetailViewDialog: BottomSheetDialogFragment() {
 
         /* Resize the width and height of Cancel Button */
         val btnCancel = dialog!!.findViewById(R.id.btn_cancel) as Button
-        btnCancel?.layoutParams?.width = (resources.displayMetrics.heightPixels / 17.5).toInt()
-        btnCancel?.layoutParams?.height = (resources.displayMetrics.heightPixels / 17.5).toInt()
-        btnCancel?.requestLayout()
+        btnCancel.layoutParams?.width = (resources.displayMetrics.heightPixels / 17.5).toInt()
+        btnCancel.layoutParams?.height = (resources.displayMetrics.heightPixels / 17.5).toInt()
+        btnCancel.requestLayout()
 
         /* Resize the width and height of Thumbnail ImageView */
         val ivProductImage = dialog!!.findViewById(R.id.iv_product_image) as ImageView
-        ivProductImage?.layoutParams?.width = (resources.displayMetrics.heightPixels / 2.25).toInt()
-        ivProductImage?.layoutParams?.height = (resources.displayMetrics.heightPixels / 2.25).toInt()
-        ivProductImage?.requestLayout()
+        ivProductImage.layoutParams?.width = (resources.displayMetrics.heightPixels / 2.25).toInt()
+        ivProductImage.layoutParams?.height = (resources.displayMetrics.heightPixels / 2.25).toInt()
+        ivProductImage.requestLayout()
     }
 
     /**
      * Restore the positionY of ScrollView
      */
     private fun restoreScrollViewState(dialog: Dialog) {
-        svProduct = dialog!!.findViewById(R.id.sv_product) as ScrollView
+        svProduct = dialog.findViewById(R.id.sv_product) as ScrollView
         svProduct?.post{
             svProduct?.scrollTo(0, DetailViewStatus.currentPositionY!!)
         }
