@@ -2,20 +2,20 @@ package com.lmy.hwahae.datasoruce.remote
 
 import androidx.paging.PageKeyedDataSource
 import com.lmy.hwahae.datasoruce.remote.api.HwahaeWebService
+import com.lmy.hwahae.datasoruce.remote.model.IndexViewItem
 import com.lmy.hwahae.datasoruce.remote.status.NetworkStatus
-import com.lmy.hwahae.datasoruce.remote.model.IndexViewProduct
 import com.lmy.hwahae.ui.status.IndexViewStatus
 import kotlinx.coroutines.*
 import java.net.SocketTimeoutException
 
-class HwahaeDataSource: PageKeyedDataSource<Int, IndexViewProduct>() {
+class HwahaeDataSource: PageKeyedDataSource<Int, IndexViewItem>() {
 
     /**
      * Initial Page Key
      */
     private val INITIAL_PAGE_KEY = 1
 
-    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, IndexViewProduct>) {
+    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, IndexViewItem>) {
 
         /**
          * Define the coroutine exception handler
@@ -54,7 +54,7 @@ class HwahaeDataSource: PageKeyedDataSource<Int, IndexViewProduct>() {
         }
     }
 
-    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, IndexViewProduct>) {
+    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, IndexViewItem>) {
 
         /**
          * Define the coroutine exception handler
@@ -93,5 +93,5 @@ class HwahaeDataSource: PageKeyedDataSource<Int, IndexViewProduct>() {
         }
     }
 
-    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, IndexViewProduct>) { /* Do nothing */ }
+    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, IndexViewItem>) { /* Do nothing */ }
 }

@@ -5,10 +5,10 @@ package com.lmy.hwahae.datasoruce.remote.model
  */
 data class IndexViewDataModel (
     var statusCode: Int,
-    var body: List<IndexViewProduct>
+    var body: List<IndexViewItem>
 )
 
-data class IndexViewProduct (
+data class IndexViewItem (
     var id: Int,
     var price: String,
     var oily_score: Int,
@@ -23,10 +23,10 @@ data class IndexViewProduct (
  */
 data class DetailViewModel (
     var statusCode: Int,
-    var body: DetailViewProduct
+    var body: DetailViewItem
 )
 
-data class DetailViewProduct (
+data class DetailViewItem (
     var id: Int,
     var full_size_image: String,
     var title: String,

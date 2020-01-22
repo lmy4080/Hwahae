@@ -13,12 +13,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.lmy.hwahae.R
-import com.lmy.hwahae.datasoruce.remote.model.IndexViewProduct
+import com.lmy.hwahae.datasoruce.remote.model.IndexViewItem
 import kotlinx.android.synthetic.main.layout_index_view_items.view.*
 import java.text.NumberFormat
 import java.util.*
 
-class IndexViewAdapter(onIndexViewAdapterListener: IndexViewAdapterListener): PagedListAdapter<IndexViewProduct, IndexViewAdapter.ItemViewHolder>(DIFF_CALLBACK) {
+class IndexViewAdapter(onIndexViewAdapterListener: IndexViewAdapterListener): PagedListAdapter<IndexViewItem, IndexViewAdapter.ItemViewHolder>(DIFF_CALLBACK) {
 
     /**
      * Save the parent view to resize items according to orientation
@@ -74,7 +74,7 @@ class IndexViewAdapter(onIndexViewAdapterListener: IndexViewAdapterListener): Pa
             }
         }
 
-        fun bind(product: IndexViewProduct?) {
+        fun bind(product: IndexViewItem?) {
             productId = product?.id
             itemView.tv_title.text = product?.title
             itemView.tv_price.text = formatPrice(product?.price)
@@ -97,9 +97,9 @@ class IndexViewAdapter(onIndexViewAdapterListener: IndexViewAdapterListener): Pa
      * Compare to decide whether data should be fetched or not
      */
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<IndexViewProduct>() {
-            override fun areItemsTheSame(oldItem: IndexViewProduct, newItem: IndexViewProduct): Boolean = oldItem.id == newItem.id
-            override fun areContentsTheSame(oldItem: IndexViewProduct, newItem: IndexViewProduct): Boolean = oldItem == newItem
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<IndexViewItem>() {
+            override fun areItemsTheSame(oldItem: IndexViewItem, newItem: IndexViewItem): Boolean = oldItem.id == newItem.id
+            override fun areContentsTheSame(oldItem: IndexViewItem, newItem: IndexViewItem): Boolean = oldItem == newItem
         }
     }
 }

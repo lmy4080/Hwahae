@@ -2,9 +2,9 @@ package com.lmy.hwahae.datasoruce.remote
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
-import com.lmy.hwahae.datasoruce.remote.model.IndexViewProduct
+import com.lmy.hwahae.datasoruce.remote.model.IndexViewItem
 
-class HwahaeDataSourceFactory: DataSource.Factory<Int, IndexViewProduct>() {
+class HwahaeDataSourceFactory: DataSource.Factory<Int, IndexViewItem>() {
 
     /**
      * Mutable LiveData holding ProductList
@@ -14,7 +14,7 @@ class HwahaeDataSourceFactory: DataSource.Factory<Int, IndexViewProduct>() {
     /**
      * Called when fetching new data from backend-api server
      */
-    override fun create(): DataSource<Int, IndexViewProduct> {
+    override fun create(): DataSource<Int, IndexViewItem> {
         var productDataSource = HwahaeDataSource()
         mProductListLiveData.postValue(productDataSource)
         return productDataSource
