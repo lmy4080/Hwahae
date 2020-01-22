@@ -76,8 +76,10 @@ class IndexViewActivity : AppCompatActivity(), IndexViewAdapterListener {
             Toast.makeText(this, networkState.toString(), Toast.LENGTH_LONG).show()
         })
 
-        mIndexViewModel.getProductDetail().observe(this, Observer { productDetail ->
-            println("changed=${productDetail}")
+        mIndexViewModel.getIsUpdatedProductDetail().observe(this, Observer { isUpdated ->
+            if(isUpdated) {
+                showDetailViewDialog()
+            }
         })
     }
 
@@ -88,7 +90,7 @@ class IndexViewActivity : AppCompatActivity(), IndexViewAdapterListener {
 
     private fun resizeAppBarLayout() {
 
-        abl_filter.layoutParams.height = Resources.getSystem().displayMetrics.heightPixels / 15
+        abl_filter.layoutParams.height = (Resources.getSystem().displayMetrics.heightPixels / 12.5).toInt()
     }
 
     private fun initSpinner() {
@@ -98,7 +100,7 @@ class IndexViewActivity : AppCompatActivity(), IndexViewAdapterListener {
         sp_skin_type.adapter = spinnerFilterAdapter
 
         sp_skin_type.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 println("onItemSelected")
 
                 if(isFirstLoaded) {
@@ -171,6 +173,10 @@ class IndexViewActivity : AppCompatActivity(), IndexViewAdapterListener {
     }
 
     override fun sendProductId(productId: Int?) {
-        mIndexViewModel.updateProductDetail(productId)
+        mIndexViewModel.fetchProductDetail(productId)
+    }
+
+    private fun showDetailViewDialog() {
+        DetailViewDialog().show(supportFragmentManager, "DetailView")
     }
 }

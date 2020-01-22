@@ -61,7 +61,6 @@ class HwahaeRepository {
      * Return live-data holding the state of network
      */
     fun getState(): LiveData<NetworkStatus.State> = NetworkStatus.mState
-    //Transformations.switchMap(mProductDataSourceFactory.mProductListLiveData, HwahaeDataSource::mState)
 
     /**
      * Return the detail of product

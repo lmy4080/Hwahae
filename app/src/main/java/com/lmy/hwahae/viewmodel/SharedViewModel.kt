@@ -1,13 +1,14 @@
 package com.lmy.hwahae.viewmodel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
 import com.lmy.hwahae.datasoruce.remote.status.NetworkStatus
-import com.lmy.hwahae.datasoruce.remote.model.IndexViewProduct
+import com.lmy.hwahae.datasoruce.remote.model.IndexViewItem
 import com.lmy.hwahae.repository.HwahaeRepository
 
-class SharedViewModel : ViewModel() {
+class SharedViewModel: ViewModel() {
 
     private val mHwahaeRepository = HwahaeRepository()
 
@@ -28,7 +29,7 @@ class SharedViewModel : ViewModel() {
     /**
      * Return live-data for product list from HwahaeRepository
      */
-    fun getProductList(): LiveData<PagedList<IndexViewProduct>> = mHwahaeRepository.mProductList
+    fun getProductList(): LiveData<PagedList<IndexViewItem>> = mHwahaeRepository.mProductList
 
     /**
      * Return live-data holding the state of network
@@ -36,14 +37,14 @@ class SharedViewModel : ViewModel() {
     fun getNetworkState(): LiveData<NetworkStatus.State> = mHwahaeRepository.getState()
 
     /**
-     * Return live-data holding the detail of product
+     * Return live-data holding the update state of product detail
      */
-    /*fun getProductDetail(): MutableLiveData<DetailViewProduct> = mHwahaeRepository.getProductDetail()*/
+    fun getIsUpdatedProductDetail(): MutableLiveData<Boolean> = mHwahaeRepository.mIsUpdatedProductDetail
 
     /**
-     * Return the detail of product
+     * Fetch the detail of product
      */
-    fun getProductDetail(productId: Int?) {
-        mHwahaeRepository.getProductDetail(productId)
+    fun fetchProductDetail(productId: Int?) {
+        mHwahaeRepository.fetchProductDetail(productId)
     }
 }
