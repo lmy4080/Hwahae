@@ -29,7 +29,7 @@ class SharedViewModel: ViewModel() {
     /**
      * Return live-data for product list from HwahaeRepository
      */
-    fun getProductList(): LiveData<PagedList<IndexViewItem>> = mHwahaeRepository.mProductList
+    fun getProductList(): LiveData<PagedList<IndexViewItem>> = mHwahaeRepository.getProductList()
 
     /**
      * Return live-data holding the state of network
@@ -39,7 +39,14 @@ class SharedViewModel: ViewModel() {
     /**
      * Return live-data holding the update state of product detail
      */
-    fun getIsUpdatedProductDetail(): MutableLiveData<Boolean> = mHwahaeRepository.mIsUpdatedProductDetail
+    fun getIsUpdatedProductDetail(): MutableLiveData<Boolean> = mHwahaeRepository.getIsUpdatedProductDetail()
+
+    /**
+     * Set live-data holding the update state of product detail with flags
+     */
+    fun setIsUpdatedProductDetail(flag: Boolean) {
+        mHwahaeRepository.setIsUpdatedProductDetail(flag)
+    }
 
     /**
      * Fetch the detail of product

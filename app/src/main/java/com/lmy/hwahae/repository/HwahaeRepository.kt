@@ -19,8 +19,8 @@ import java.util.concurrent.Executors
 
 class HwahaeRepository {
 
-    var mProductList: LiveData<PagedList<IndexViewItem>>
-    var mIsUpdatedProductDetail = MutableLiveData<Boolean>()
+    private var mProductList: LiveData<PagedList<IndexViewItem>>
+    private var mIsUpdatedProductDetail = MutableLiveData<Boolean>()
     private val mProductDataSourceFactory = HwahaeDataSourceFactory()
 
     /**
@@ -58,9 +58,26 @@ class HwahaeRepository {
     }
 
     /**
+     * Return live-data for product list from HwahaeRepository
+     */
+    fun getProductList(): LiveData<PagedList<IndexViewItem>> = mProductList
+
+    /**
      * Return live-data holding the state of network
      */
     fun getState(): LiveData<NetworkStatus.State> = NetworkStatus.mState
+
+    /**
+     * Return live-data holding the update state of product detail
+     */
+    fun getIsUpdatedProductDetail(): MutableLiveData<Boolean> = mIsUpdatedProductDetail
+
+    /**
+     * Set live-data holding the update state of product detail with flags
+     */
+    fun setIsUpdatedProductDetail(flag: Boolean) {
+        mIsUpdatedProductDetail.postValue(flag)
+    }
 
     /**
      * Return the detail of product
