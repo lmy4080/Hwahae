@@ -1,4 +1,4 @@
-package com.lmy.hwahae.datasoruce.status
+package com.lmy.hwahae.datasoruce.remote.status
 
 import androidx.lifecycle.MutableLiveData
 

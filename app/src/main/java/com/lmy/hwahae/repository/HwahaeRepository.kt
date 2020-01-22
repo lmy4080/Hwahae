@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.lmy.hwahae.datasoruce.HwahaeDataSourceFactory
-import com.lmy.hwahae.datasoruce.api.HwahaeWebService
-import com.lmy.hwahae.datasoruce.model.DetailViewProduct
-import com.lmy.hwahae.datasoruce.model.IndexViewProduct
-import com.lmy.hwahae.datasoruce.status.NetworkStatus
+import com.lmy.hwahae.datasoruce.remote.HwahaeDataSourceFactory
+import com.lmy.hwahae.datasoruce.remote.api.HwahaeWebService
+import com.lmy.hwahae.datasoruce.remote.model.DetailViewProduct
+import com.lmy.hwahae.datasoruce.remote.model.IndexViewProduct
+import com.lmy.hwahae.datasoruce.remote.status.NetworkStatus
 import com.lmy.hwahae.ui.status.IndexViewStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +20,8 @@ class HwahaeRepository {
 
     var mProductList: LiveData<PagedList<IndexViewProduct>>
     var mProductDetail = MutableLiveData<DetailViewProduct>()
-    private val mProductDataSourceFactory = HwahaeDataSourceFactory()
+    private val mProductDataSourceFactory =
+        HwahaeDataSourceFactory()
 
     /**
      * Create live-data for product list from HwahaeDataSourceFactory
@@ -65,12 +66,12 @@ class HwahaeRepository {
     /**
      * Return live-data holding the detail of product
      */
-    fun getProductDetail(): MutableLiveData<DetailViewProduct> = mProductDetail
+    /*fun getProductDetail(): MutableLiveData<DetailViewProduct> = mProductDetail*/
 
     /**
-     * Update the detail of product
+     * Return the detail of product
      */
-    fun updateProductDetail(productId: Int?) {
+    fun getProductDetail(productId: Int?) {
 
         NetworkStatus.updateNetworkState(NetworkStatus.State.LOADING)
         CoroutineScope(Dispatchers.IO).launch {

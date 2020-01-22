@@ -1,8 +1,8 @@
-package com.lmy.hwahae.datasoruce
+package com.lmy.hwahae.datasoruce.remote
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
-import com.lmy.hwahae.datasoruce.model.IndexViewProduct
+import com.lmy.hwahae.datasoruce.remote.model.IndexViewProduct
 
 class HwahaeDataSourceFactory: DataSource.Factory<Int, IndexViewProduct>() {
 

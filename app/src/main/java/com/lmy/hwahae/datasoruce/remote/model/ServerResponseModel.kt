@@ -1,12 +1,11 @@
-package com.lmy.hwahae.datasoruce.model
+package com.lmy.hwahae.datasoruce.remote.model
 
 /**
- * Model for IndexView
+ * Server Response Model for IndexView
  */
 data class IndexViewDataModel (
     var statusCode: Int,
     var body: List<IndexViewProduct>
-
 )
 
 data class IndexViewProduct (
@@ -20,12 +19,11 @@ data class IndexViewProduct (
 )
 
 /**
- * Model for DetailView
+ * Server Response Model for DetailView
  */
 data class DetailViewModel (
     var statusCode: Int,
     var body: DetailViewProduct
-
 )
 
 data class DetailViewProduct (

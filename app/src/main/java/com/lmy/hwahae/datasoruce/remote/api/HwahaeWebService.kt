@@ -1,7 +1,7 @@
-package com.lmy.hwahae.datasoruce.api
+package com.lmy.hwahae.datasoruce.remote.api
 
-import com.lmy.hwahae.datasoruce.model.DetailViewModel
-import com.lmy.hwahae.datasoruce.model.IndexViewDataModel
+import com.lmy.hwahae.datasoruce.remote.model.DetailViewModel
+import com.lmy.hwahae.datasoruce.remote.model.IndexViewDataModel
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

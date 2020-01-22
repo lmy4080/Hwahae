@@ -1,9 +1,9 @@
-package com.lmy.hwahae.datasoruce
+package com.lmy.hwahae.datasoruce.remote
 
 import androidx.paging.PageKeyedDataSource
-import com.lmy.hwahae.datasoruce.api.HwahaeWebService
-import com.lmy.hwahae.datasoruce.status.NetworkStatus
-import com.lmy.hwahae.datasoruce.model.IndexViewProduct
+import com.lmy.hwahae.datasoruce.remote.api.HwahaeWebService
+import com.lmy.hwahae.datasoruce.remote.status.NetworkStatus
+import com.lmy.hwahae.datasoruce.remote.model.IndexViewProduct
 import com.lmy.hwahae.ui.status.IndexViewStatus
 import kotlinx.coroutines.*
 import java.net.SocketTimeoutException

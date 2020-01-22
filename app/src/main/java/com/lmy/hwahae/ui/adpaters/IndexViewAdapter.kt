@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.lmy.hwahae.R
-import com.lmy.hwahae.datasoruce.model.IndexViewProduct
+import com.lmy.hwahae.datasoruce.remote.model.IndexViewProduct
 import kotlinx.android.synthetic.main.layout_index_view_items.view.*
 import java.text.NumberFormat
 import java.util.*

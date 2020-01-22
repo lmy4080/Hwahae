@@ -1,12 +1,10 @@
 package com.lmy.hwahae.viewmodel
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
-import com.lmy.hwahae.datasoruce.status.NetworkStatus
-import com.lmy.hwahae.datasoruce.model.DetailViewProduct
-import com.lmy.hwahae.datasoruce.model.IndexViewProduct
+import com.lmy.hwahae.datasoruce.remote.status.NetworkStatus
+import com.lmy.hwahae.datasoruce.remote.model.IndexViewProduct
 import com.lmy.hwahae.repository.HwahaeRepository
 
 class SharedViewModel : ViewModel() {
@@ -40,12 +38,12 @@ class SharedViewModel : ViewModel() {
     /**
      * Return live-data holding the detail of product
      */
-    fun getProductDetail(): MutableLiveData<DetailViewProduct> = mHwahaeRepository.getProductDetail()
+    /*fun getProductDetail(): MutableLiveData<DetailViewProduct> = mHwahaeRepository.getProductDetail()*/
 
     /**
-     * Update the detail of product
+     * Return the detail of product
      */
-    fun updateProductDetail(productId: Int?) {
-        mHwahaeRepository.updateProductDetail(productId)
+    fun getProductDetail(productId: Int?) {
+        mHwahaeRepository.getProductDetail(productId)
     }
 }
