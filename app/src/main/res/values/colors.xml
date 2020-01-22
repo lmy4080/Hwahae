@@ -4,4 +4,5 @@
     <color name="colorGray">#E7E7E7</color>
     <color name="colorWhiteTransparent">#FFDDDDDD</color>
     <color name="colorTheme">#9013FE</color>
+    <color name="colorGrayTransparent">#29181828</color>
 </resources>
