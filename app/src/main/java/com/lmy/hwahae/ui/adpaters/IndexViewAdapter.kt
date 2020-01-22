@@ -67,7 +67,7 @@ class IndexViewAdapter(onIndexViewAdapterListener: IndexViewAdapterListener): Pa
                 /**
                  * Orientation Portrait
                  * Resize ViewHolder's height
-                 * 2.5 items per page in row
+                 * 3 items per page in row
                  */
                 itemView.layoutParams.height = (recyclerViewHeight / 2.5).toInt()
                 itemView.findViewById<ImageView>(R.id.iv_thumbnail).layoutParams.height = (itemView.layoutParams.height / 1.5).toInt()
