@@ -6,9 +6,10 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.lmy.hwahae.datasoruce.remote.HwahaeDataSourceFactory
 import com.lmy.hwahae.datasoruce.remote.api.HwahaeWebService
-import com.lmy.hwahae.datasoruce.remote.model.DetailViewProduct
-import com.lmy.hwahae.datasoruce.remote.model.IndexViewProduct
+import com.lmy.hwahae.datasoruce.remote.model.DetailViewItem
+import com.lmy.hwahae.datasoruce.remote.model.IndexViewItem
 import com.lmy.hwahae.datasoruce.remote.status.NetworkStatus
+import com.lmy.hwahae.ui.status.DetailViewStatus
 import com.lmy.hwahae.ui.status.IndexViewStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,10 +19,9 @@ import java.util.concurrent.Executors
 
 class HwahaeRepository {
 
-    var mProductList: LiveData<PagedList<IndexViewProduct>>
-    var mProductDetail = MutableLiveData<DetailViewProduct>()
-    private val mProductDataSourceFactory =
-        HwahaeDataSourceFactory()
+    var mProductList: LiveData<PagedList<IndexViewItem>>
+    var mIsUpdatedProductDetail = MutableLiveData<Boolean>()
+    private val mProductDataSourceFactory = HwahaeDataSourceFactory()
 
     /**
      * Create live-data for product list from HwahaeDataSourceFactory
@@ -35,7 +35,7 @@ class HwahaeRepository {
             .setEnablePlaceholders(false)
             .build()
 
-        mProductList = LivePagedListBuilder<Int, IndexViewProduct>(mProductDataSourceFactory , config)
+        mProductList = LivePagedListBuilder<Int, IndexViewItem>(mProductDataSourceFactory , config)
             .setFetchExecutor(executor)
             .build()
     }
@@ -64,21 +64,16 @@ class HwahaeRepository {
     //Transformations.switchMap(mProductDataSourceFactory.mProductListLiveData, HwahaeDataSource::mState)
 
     /**
-     * Return live-data holding the detail of product
-     */
-    /*fun getProductDetail(): MutableLiveData<DetailViewProduct> = mProductDetail*/
-
-    /**
      * Return the detail of product
      */
-    fun getProductDetail(productId: Int?) {
+    fun fetchProductDetail(productId: Int?) {
 
         NetworkStatus.updateNetworkState(NetworkStatus.State.LOADING)
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 HwahaeWebService.service.getProductDetail(productId).apply {
                     withContext(Dispatchers.Main) {
-                        mProductDetail.setValue(this@apply?.body)
+                        saveProductDetail(this@apply?.body)
                         NetworkStatus.updateNetworkState(NetworkStatus.State.DONE)
                     }
                 }
@@ -91,7 +86,20 @@ class HwahaeRepository {
     }
 
     /**
+     *  Save the detail of product into singleton object
+     */
+    private fun saveProductDetail(productDetail: DetailViewItem) {
+        if(DetailViewStatus.detailViewItem.id != productDetail.id)
+            DetailViewStatus.currentPositionY = 0
+
+        DetailViewStatus.detailViewItem = productDetail
+        mIsUpdatedProductDetail.postValue(true)
+    }
+
+    /**
      * Fetch new data
      */
     private fun fetchProductList() { mProductList.value?.dataSource?.invalidate() }
 }
+
+
