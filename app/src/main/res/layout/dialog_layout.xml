@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_main"
+    android:fillViewport="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_rectangle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.020" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="@id/gl_rectangle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_rectangle_middle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_rectangle_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.4" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_rectangle_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.6" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/detail_view_header_border"
+                app:layout_constraintStart_toStartOf="@id/gl_rectangle_left"
+                app:layout_constraintEnd_toEndOf="@id/gl_rectangle_right"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/gl_rectangle_middle"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/gl_rectangle">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_cancel_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.02"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_cancel_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.085"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_cancel_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.845"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_cancel_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.965"/>
+
+            <Button
+                android:id="@+id/btn_cancel"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/baseline_cancel_24"
+                app:layout_constraintTop_toTopOf="@id/gl_cancel_top"
+                app:layout_constraintStart_toStartOf="@id/gl_cancel_left"
+                app:layout_constraintEnd_toEndOf="@id/gl_cancel_right"
+                app:layout_constraintBottom_toBottomOf="@id/gl_cancel_bottom"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_purchase_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.82"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_purchase_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.89"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_purchase_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.075"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_purchase_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.925"/>
+
+            <Button
+                android:id="@+id/btn_purchase"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="구매하기"
+                android:textColor="@android:color/white"
+                android:background="@drawable/btn_purchase_detail_view_bg"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="@id/gl_purchase_top"
+                app:layout_constraintStart_toStartOf="@id/gl_purchase_left"
+                app:layout_constraintEnd_toEndOf="@id/gl_purchase_right"
+                app:layout_constraintBottom_toBottomOf="@id/gl_purchase_bottom"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ScrollView
+                    android:id="@+id/sv_product"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/sv_product_detail_view_bg"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/iv_product_image"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/test"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingLeft="30dp"
+                            android:paddingRight="30dp">
+
+                            <TextView style="@style/TextAppearance.AppCompat.Large"
+                                android:id="@+id/tv_product_title"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="국제약 센텔리24 파워 부스팅 포뮬러 마데카 크림 50ml"
+                                android:textStyle="bold"
+                                android:paddingTop="30dp"
+                                android:paddingBottom="30dp"/>
+
+                            <TextView style="@style/TextAppearance.AppCompat.Medium"
+                                android:id="@+id/tv_product_price"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="10,800원"
+                                android:textStyle="bold"
+                                android:textColor="@android:color/holo_purple"
+                                android:paddingBottom="30dp"/>
+
+                            <TextView
+                                android:id="@+id/tv_product_description"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/lorem"
+                                android:background="@drawable/textline_border_top"
+                                android:paddingTop="30dp"/>
+
+                            <FrameLayout
+                                android:id="@+id/fl_product_space"
+                                android:layout_width="match_parent"
+                                android:layout_height="300dp"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </ScrollView>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>
