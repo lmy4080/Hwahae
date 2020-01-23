@@ -11,10 +11,7 @@ import com.lmy.hwahae.datasoruce.remote.model.IndexViewItem
 import com.lmy.hwahae.datasoruce.remote.status.NetworkStatus
 import com.lmy.hwahae.ui.status.DetailViewStatus
 import com.lmy.hwahae.ui.status.IndexViewStatus
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import java.util.concurrent.Executors
 
 class HwahaeRepository {
@@ -89,12 +86,11 @@ class HwahaeRepository {
             try {
                 HwahaeWebService.service.getProductDetail(productId).apply {
                     withContext(Dispatchers.Main) {
-                        saveProductDetail(this@apply?.body)
                         NetworkStatus.updateNetworkState(NetworkStatus.State.DONE)
+                        saveProductDetail(this@apply?.body)
                     }
                 }
-            }
-            catch(throwable: Throwable) {
+            } catch (throwable: Throwable) {
                 throwable.printStackTrace()
                 NetworkStatus.updateNetworkState(NetworkStatus.State.FAILED)
             }
@@ -105,6 +101,7 @@ class HwahaeRepository {
      *  Save the detail of product into singleton object
      */
     private fun saveProductDetail(productDetail: DetailViewItem) {
+
         if(DetailViewStatus.detailViewItem.id != productDetail.id)
             DetailViewStatus.currentPositionY = 0
 

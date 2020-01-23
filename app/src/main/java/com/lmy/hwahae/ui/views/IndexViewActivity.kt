@@ -74,21 +74,20 @@ class IndexViewActivity : AppCompatActivity(), IndexViewAdapterListener {
         })
 
         mIndexViewModel.getNetworkState().observe(this, Observer { networkState ->
-            println("$networkState")
             when(networkState) {
                 NetworkStatus.State.LOADING -> showProgressBar()
                 NetworkStatus.State.RETRY -> showProgressBar()
+                NetworkStatus.State.DONE -> hideProgressBar()
                 NetworkStatus.State.FAILED -> {
                     hideProgressBar()
                     showFailedMessage("상품 정보를 받아오는데 실패하였습니다. 잠시 후 다시 시도해주세요.")
                 }
-                NetworkStatus.State.DONE -> hideProgressBar()
                 null -> return@Observer
             }
         })
 
         mIndexViewModel.getIsUpdatedProductDetail().observe(this, Observer { isUpdated ->
-            if(isUpdated) {
+            if (isUpdated) {
                 showDetailViewDialog()
                 mIndexViewModel.setIsUpdatedProductDetail(false)
             }
