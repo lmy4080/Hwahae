@@ -313,7 +313,18 @@
                 android:scrollbars="vertical"
                 android:paddingLeft="@dimen/margin_medium"
                 android:paddingRight="@dimen/margin_medium"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <ProgressBar
+                android:id="@+id/pb_loading_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:indeterminate="true"
+                android:indeterminateTintMode="src_in"
+                android:indeterminateTint="@android:color/darker_gray" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

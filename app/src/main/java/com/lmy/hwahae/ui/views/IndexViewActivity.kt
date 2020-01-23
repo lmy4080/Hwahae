@@ -6,6 +6,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.lifecycle.Observer
@@ -13,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.appbar.AppBarLayout
 import com.lmy.hwahae.R
+import com.lmy.hwahae.datasoruce.remote.status.NetworkStatus
 import com.lmy.hwahae.ui.adpaters.IndexViewAdapter
 import com.lmy.hwahae.ui.adpaters.IndexViewAdapterListener
 import com.lmy.hwahae.viewmodel.SharedViewModel
@@ -72,7 +74,17 @@ class IndexViewActivity : AppCompatActivity(), IndexViewAdapterListener {
         })
 
         mIndexViewModel.getNetworkState().observe(this, Observer { networkState ->
-            //Toast.makeText(this, networkState.toString(), Toast.LENGTH_LONG).show()
+            println("$networkState")
+            when(networkState) {
+                NetworkStatus.State.LOADING -> showProgressBar()
+                NetworkStatus.State.RETRY -> showProgressBar()
+                NetworkStatus.State.FAILED -> {
+                    hideProgressBar()
+                    showFailedMessage("상품 정보를 받아오는데 실패하였습니다. 잠시 후 다시 시도해주세요.")
+                }
+                NetworkStatus.State.DONE -> hideProgressBar()
+                null -> return@Observer
+            }
         })
 
         mIndexViewModel.getIsUpdatedProductDetail().observe(this, Observer { isUpdated ->
@@ -81,6 +93,10 @@ class IndexViewActivity : AppCompatActivity(), IndexViewAdapterListener {
                 mIndexViewModel.setIsUpdatedProductDetail(false)
             }
         })
+    }
+
+    private fun showFailedMessage(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 
     private fun hideStatusBar() {
@@ -178,5 +194,13 @@ class IndexViewActivity : AppCompatActivity(), IndexViewAdapterListener {
 
     private fun showDetailViewDialog() {
         DetailViewDialog().show(supportFragmentManager, "DetailView")
+    }
+
+    private fun showProgressBar() {
+        pb_loading_bar.visibility = View.VISIBLE
+    }
+
+    private fun hideProgressBar() {
+        pb_loading_bar.visibility = View.GONE
     }
 }
