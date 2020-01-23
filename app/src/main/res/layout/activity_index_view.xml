@@ -126,11 +126,11 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:textSize="@dimen/font_medium"
+                android:textSize="@dimen/font_small_medium"
                 android:text="@string/tv_time_text"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
-                android:fontFamily="@font/sf_pro_text"
+                android:fontFamily="@font/sf_pro_text_regular"
                 android:gravity="center_vertical|center_horizontal"
                 app:layout_constraintTop_toTopOf="@id/gl_time_top"
                 app:layout_constraintStart_toStartOf="@id/gl_time_left"
