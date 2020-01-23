@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData
 object NetworkStatus {
 
     enum class State {
-        DONE, LOADING, FAILED
+        LOADING, RETRY, FAILED, DONE
     }
 
     var mState: MutableLiveData<State> = MutableLiveData()

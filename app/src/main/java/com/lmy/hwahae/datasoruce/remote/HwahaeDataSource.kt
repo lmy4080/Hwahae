@@ -18,18 +18,21 @@ class HwahaeDataSource: PageKeyedDataSource<Int, IndexViewItem>() {
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, IndexViewItem>) {
 
         /**
-         * Define the coroutine exception handler
+         * Handle the coroutine exception
          */
         val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+            NetworkStatus.updateNetworkState(NetworkStatus.State.RETRY)
 
             when(throwable){
                 /* Socket Time-Out Exception */
                 is SocketTimeoutException -> loadInitial(params,callback)
 
                 /* other Exceptions */
+                // is...
 
+                /* log an error */
+                else -> throwable.printStackTrace()
             }
-            throwable.printStackTrace()
         }
 
         /**
@@ -37,19 +40,11 @@ class HwahaeDataSource: PageKeyedDataSource<Int, IndexViewItem>() {
          */
         NetworkStatus.updateNetworkState(NetworkStatus.State.LOADING)
         CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
-            try {
-                HwahaeWebService.service.getProductList(IndexViewStatus.currentSkinType, INITIAL_PAGE_KEY, IndexViewStatus.currentSearchKeyword).apply {
-                    withContext(Dispatchers.Main) {
-                        callback.onResult(this@apply.body, 0, this@apply.body.size, null, INITIAL_PAGE_KEY+1)
-                        NetworkStatus.updateNetworkState(NetworkStatus.State.DONE)
-                    }
-                }
-            }
-            catch(throwable: Throwable) {
+            HwahaeWebService.service.getProductList(IndexViewStatus.currentSkinType, INITIAL_PAGE_KEY, IndexViewStatus.currentSearchKeyword).apply {
                 withContext(Dispatchers.Main) {
-                    NetworkStatus.updateNetworkState(NetworkStatus.State.FAILED)
+                    callback.onResult(this@apply.body, 0, this@apply.body.size, null, INITIAL_PAGE_KEY+1)
+                    NetworkStatus.updateNetworkState(NetworkStatus.State.DONE)
                 }
-                throw throwable
             }
         }
     }
@@ -57,18 +52,21 @@ class HwahaeDataSource: PageKeyedDataSource<Int, IndexViewItem>() {
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, IndexViewItem>) {
 
         /**
-         * Define the coroutine exception handler
+         * Handle the coroutine exception
          */
         val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+            NetworkStatus.updateNetworkState(NetworkStatus.State.RETRY)
 
             when(throwable){
                 /* Socket Time-Out Exception */
                 is SocketTimeoutException -> loadAfter(params,callback)
 
                 /* other Exceptions */
+                // is...
 
+                /* log an error */
+                else -> throwable.printStackTrace()
             }
-            throwable.printStackTrace()
         }
 
         /**
@@ -76,19 +74,11 @@ class HwahaeDataSource: PageKeyedDataSource<Int, IndexViewItem>() {
          */
         NetworkStatus.updateNetworkState(NetworkStatus.State.LOADING)
         CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
-            try {
-                HwahaeWebService.service.getProductList(IndexViewStatus.currentSkinType, params.key, IndexViewStatus.currentSearchKeyword).apply {
-                    withContext(Dispatchers.Main) {
-                        callback.onResult(this@apply.body, params.key+1)
-                        NetworkStatus.updateNetworkState(NetworkStatus.State.DONE)
-                    }
-                }
-            }
-            catch(throwable: Throwable) {
+            HwahaeWebService.service.getProductList(IndexViewStatus.currentSkinType, params.key, IndexViewStatus.currentSearchKeyword).apply {
                 withContext(Dispatchers.Main) {
-                    NetworkStatus.updateNetworkState(NetworkStatus.State.FAILED)
+                    callback.onResult(this@apply.body, params.key+1)
+                    NetworkStatus.updateNetworkState(NetworkStatus.State.DONE)
                 }
-                throw throwable
             }
         }
     }
