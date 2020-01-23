@@ -24,6 +24,9 @@ class IndexViewAdapter(onIndexViewAdapterListener: IndexViewAdapterListener): Pa
      */
     private lateinit var parentViewGroup: ViewGroup
 
+    private var mLastClickTime = System.currentTimeMillis()
+    private val CLICK_TIME_INTERVAL: Long = 3000
+
     /**
      * Call back when user clicks the product item to check it in detail
      */
@@ -82,8 +85,14 @@ class IndexViewAdapter(onIndexViewAdapterListener: IndexViewAdapterListener): Pa
                 .load(product?.thumbnail_image?.toUri())
                 .into(itemView.iv_thumbnail)
 
-            itemView.ll_item.setOnClickListener {
-                onIndexViewAdapterListener.sendProductId(productId)
+            itemView.ll_item.setOnClickListener { // Prevent from multiple clicking
+                val now = System.currentTimeMillis()
+                if (now - mLastClickTime < CLICK_TIME_INTERVAL) {
+                }
+                else {
+                    mLastClickTime = now
+                    onIndexViewAdapterListener.sendProductId(productId)
+                }
             }
         }
     }
