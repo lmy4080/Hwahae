@@ -7,4 +7,5 @@
     <color name="colorBlack">#141428</color>
     <color name="colorGrayTransparent">#29181828</color>
     <color name="colorBorder">#ECECF5</color>
+    <color name="colorGrayLight">#ABABC4</color>
 </resources>
