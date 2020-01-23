@@ -14,9 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.lmy.hwahae.R
 import com.lmy.hwahae.datasoruce.remote.model.IndexViewItem
+import com.lmy.hwahae.ui.utils.FormatPlainToPrice
 import kotlinx.android.synthetic.main.layout_index_view_items.view.*
-import java.text.NumberFormat
-import java.util.*
 
 class IndexViewAdapter(onIndexViewAdapterListener: IndexViewAdapterListener): PagedListAdapter<IndexViewItem, IndexViewAdapter.ItemViewHolder>(DIFF_CALLBACK) {
 
@@ -77,7 +76,7 @@ class IndexViewAdapter(onIndexViewAdapterListener: IndexViewAdapterListener): Pa
         fun bind(product: IndexViewItem?) {
             productId = product?.id
             itemView.tv_title.text = product?.title
-            itemView.tv_price.text = formatPrice(product?.price)
+            itemView.tv_price.text = FormatPlainToPrice.start(product?.price)
             Glide.with(itemView)
                 .asBitmap()
                 .load(product?.thumbnail_image?.toUri())
@@ -87,10 +86,6 @@ class IndexViewAdapter(onIndexViewAdapterListener: IndexViewAdapterListener): Pa
                 onIndexViewAdapterListener.sendProductId(productId)
             }
         }
-
-        /* Format, ex) 10000 -> 10,000원 */
-        private fun formatPrice(price: String?): String =
-            NumberFormat.getNumberInstance(Locale.KOREA).format(price?.toInt()) + "원"
     }
 
     /**
