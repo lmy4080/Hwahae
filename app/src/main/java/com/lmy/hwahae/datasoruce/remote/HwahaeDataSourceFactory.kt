@@ -12,7 +12,7 @@ class HwahaeDataSourceFactory: DataSource.Factory<Int, IndexViewItem>() {
     val mProductListLiveData = MutableLiveData<HwahaeDataSource>()
 
     /**
-     * Called when fetching new data from backend-api server
+     * Called to fetch new data from backend-api server
      */
     override fun create(): DataSource<Int, IndexViewItem> {
         var productDataSource = HwahaeDataSource()

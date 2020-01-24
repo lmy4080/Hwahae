@@ -24,6 +24,9 @@ class IndexViewAdapter(onIndexViewAdapterListener: IndexViewAdapterListener): Pa
      */
     private lateinit var parentViewGroup: ViewGroup
 
+    /**
+     * Prevent multiple clicks
+     */
     private var mLastClickTime = System.currentTimeMillis()
     private val CLICK_TIME_INTERVAL: Long = 3000
 
@@ -95,6 +98,13 @@ class IndexViewAdapter(onIndexViewAdapterListener: IndexViewAdapterListener): Pa
                 }
             }
         }
+    }
+
+    /**
+     * Reset the list click time
+     */
+    fun resetLastClickTime() {
+        mLastClickTime -= CLICK_TIME_INTERVAL
     }
 
     /**

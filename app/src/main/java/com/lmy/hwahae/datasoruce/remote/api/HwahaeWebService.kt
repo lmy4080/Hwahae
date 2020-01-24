@@ -35,7 +35,7 @@ interface HwahaeWebService {
      */
     companion object RetrofitBuilder {
 
-        /* Server Base-Parameters */
+        /* Connection configuration params */
         private const val BASE_URL = "https://6uqljnm1pb.execute-api.ap-northeast-2.amazonaws.com/prod/"
         private const val CONNECT_TIMEOUT = 15L
         private const val READ_TIMEOUT = 3L

@@ -38,7 +38,7 @@ class HwahaeRepository {
     }
 
     /**
-     * Set the typed keyword by user for searching
+     * Set the typed keyword for searching
      */
     fun setSearchKeyword(searchKeyword: String) {
         IndexViewStatus.currentSearchKeyword = searchKeyword
@@ -46,7 +46,7 @@ class HwahaeRepository {
     }
 
     /**
-     * Set the selected skin-type by user for searching
+     * Set the selected skin-type for searching
      */
     fun setSkinType(skinType: String) {
         IndexViewStatus.currentSkinType = skinType

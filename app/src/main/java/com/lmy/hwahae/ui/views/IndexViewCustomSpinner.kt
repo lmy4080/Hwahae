@@ -17,7 +17,6 @@ class IndexViewCustomSpinner : Spinner {
         val sameSelected = position == selectedItemPosition
         super.setSelection(position, animate)
         if (sameSelected) {
-            // Spinner does not call the OnItemSelectedListener if the same item is selected, so do it manually now
             onItemSelectedListener!!.onItemSelected(this, selectedView, position, selectedItemId)
         }
     }
@@ -26,7 +25,6 @@ class IndexViewCustomSpinner : Spinner {
         val sameSelected = position == selectedItemPosition
         super.setSelection(position)
         if (sameSelected) {
-            // Spinner does not call the OnItemSelectedListener if the same item is selected, so do it manually now
             onItemSelectedListener!!.onItemSelected(this, selectedView, position, selectedItemId)
         }
     }
