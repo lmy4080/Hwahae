@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.core.net.toUri
@@ -36,11 +37,15 @@ class DetailViewDialog: BottomSheetDialogFragment() {
 
         /* Apply the animation to dialog */
         registerDialogAnimation(dialog)
+
         return dialog
     }
 
     override fun onStart() {
         super.onStart()
+
+        /* Hide the status bar */
+        hideStatusBar()
 
         /* Init dialog's views */
         initViews()
@@ -84,6 +89,13 @@ class DetailViewDialog: BottomSheetDialogFragment() {
             ).start()
 
         }.start()
+    }
+
+    /**
+     * Hide the status bar
+     */
+    private fun hideStatusBar() {
+        dialog?.window?.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
     }
 
     /**
