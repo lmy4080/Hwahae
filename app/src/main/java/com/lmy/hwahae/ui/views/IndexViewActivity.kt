@@ -89,6 +89,7 @@ class IndexViewActivity : AppCompatActivity(), IndexViewAdapterListener {
         mIndexViewModel.getIsUpdatedProductDetail().observe(this, Observer { isUpdated ->
             if (isUpdated) {
                 showDetailViewDialog()
+                mAdapter.resetLastClickTime()
                 mIndexViewModel.setIsUpdatedProductDetail(false)
             }
         })
@@ -122,7 +123,6 @@ class IndexViewActivity : AppCompatActivity(), IndexViewAdapterListener {
                     isFirstLoaded = false
                 }
                 else {
-
                     /* Set the current skin type with user's value and fetch new data */
                     mIndexViewModel.setSkinType(position.toString())
 
