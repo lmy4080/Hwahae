@@ -1,28 +1,31 @@
 package com.lmy.hwahae.ui.views
 
-import android.app.Dialog
 import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.*
-import androidx.appcompat.app.AlertDialog
 import androidx.core.net.toUri
+import androidx.core.widget.NestedScrollView
 import androidx.dynamicanimation.animation.SpringForce
+import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.lmy.hwahae.R
 import com.lmy.hwahae.ui.status.DetailViewStatus
 import com.lmy.hwahae.ui.utils.AnimationHelper
 import com.lmy.hwahae.ui.utils.FormatPlainToPrice
 
 
-class DetailViewDialog: BottomSheetDialogFragment() {
 
-    private lateinit var svProduct: ScrollView
+
+class DetailViewDialog: DialogFragment() {
+
+    private lateinit var mView: View
+    private lateinit var svProduct: NestedScrollView
     private lateinit var btnCancel: Button
     private lateinit var btnPurchase: Button
     private lateinit var ivProductImage: ImageView
@@ -31,18 +34,15 @@ class DetailViewDialog: BottomSheetDialogFragment() {
     private lateinit var tvDescription: TextView
     private lateinit var flBottomMargin: FrameLayout
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        mView = inflater.inflate(R.layout.dialog_detail_view, container, false)
 
-        var dialog = AlertDialog.Builder(requireContext()).setView(R.layout.dialog_detail_view).create()
-
-        /* Apply the animation to dialog */
-        registerDialogAnimation(dialog)
-
-        return dialog
-    }
-
-    override fun onStart() {
-        super.onStart()
+        /* Apply the animation to this dialog */
+        registerDialogAnimation()
 
         /* Hide the status bar */
         hideStatusBar()
@@ -50,40 +50,57 @@ class DetailViewDialog: BottomSheetDialogFragment() {
         /* Init dialog's views */
         initViews()
 
+        /* Register event listeners */
+        registerViewEvents()
+
         /* Resize the views of dialog dynamically */
-        resizeViews()
+        resizeChildViews()
 
         /* Set data to dialog's views */
         setData()
 
         /* Restore the positionY of ScrollView */
         restoreScrollViewState()
+
+        return mView
+    }
+
+    override fun onStart() {
+        super.onStart()
+        resizeDialog()
     }
 
     override fun onDismiss(dialog: DialogInterface) {
 
         /* Save the current positionY of ScrollView */
-        DetailViewStatus.currentPositionY = svProduct.scrollY
-
+        saveScrollViewPositionY()
         super.onDismiss(dialog)
+    }
+
+    /**
+     * Resize the width and height of dialog
+     */
+    private fun resizeDialog() {
+
+        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
 
     /**
      * Create and apply the animation to dialog
      */
-    private fun registerDialogAnimation(dialog: AlertDialog) {
+    private fun registerDialogAnimation() {
 
         AnimationHelper.getSpringAnimation(
-            dialog.window!!.decorView,
+            mView,
             (resources.displayMetrics.heightPixels * 2).toFloat(),
             AnimationHelper.getSpringForce(((resources.displayMetrics.heightPixels / 15).toFloat()), 0.725f, SpringForce.STIFFNESS_VERY_LOW)
         ).addEndListener { _, _, _, _ ->
-
-            val btnPurchase = dialog.window?.findViewById<Button>(R.id.btn_purchase)
-            btnPurchase?.visibility = View.VISIBLE
+            btnPurchase = mView.findViewById(R.id.btn_purchase)
+            btnPurchase.visibility = View.VISIBLE
 
             AnimationHelper.getSpringAnimation(
-                btnPurchase!!,
+                btnPurchase,
                 2000f,
                 AnimationHelper.getSpringForce(0f,0.80f, SpringForce.STIFFNESS_LOW)
             ).start()
@@ -102,24 +119,33 @@ class DetailViewDialog: BottomSheetDialogFragment() {
      * Init dialog's views
      */
     private fun initViews() {
-        svProduct = dialog!!.findViewById(R.id.sv_product) as ScrollView
-        btnCancel = dialog!!.findViewById(R.id.btn_cancel) as Button
-        btnPurchase = dialog!!.findViewById(R.id.btn_purchase) as Button
-        ivProductImage = dialog!!.findViewById(R.id.iv_product_image) as ImageView
-        tvTitle = dialog!!.findViewById(R.id.tv_product_title) as TextView
-        tvPrice= dialog!!.findViewById(R.id.tv_product_price) as TextView
-        tvDescription = dialog!!.findViewById(R.id.tv_product_description) as TextView
-        flBottomMargin = dialog!!.findViewById(R.id.fl_product_bottom_margin) as FrameLayout
+        svProduct = mView.findViewById(R.id.sv_product) as NestedScrollView
+        btnCancel = mView.findViewById(R.id.btn_cancel) as Button
+        btnPurchase = mView.findViewById(R.id.btn_purchase)
+        btnPurchase = mView.findViewById(R.id.btn_purchase) as Button
+        ivProductImage = mView.findViewById(R.id.iv_product_image) as ImageView
+        tvTitle = mView.findViewById(R.id.tv_product_title) as TextView
+        tvPrice= mView.findViewById(R.id.tv_product_price) as TextView
+        tvDescription = mView.findViewById(R.id.tv_product_description) as TextView
+        flBottomMargin = mView.findViewById(R.id.fl_product_bottom_margin) as FrameLayout
+    }
+
+    /**
+     * Register onClickListener on cancel button
+     */
+    private fun registerViewEvents() {
+
+        /* Dismiss this dialog when clicking on 'btnCancel' */
+        btnCancel.setOnClickListener {
+            saveScrollViewPositionY()
+            dismiss()
+        }
     }
 
     /**
      * Resize the dialog dynamically
      */
-    private fun resizeViews() {
-
-        /* Resize the width and height of dialog */
-        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+    private fun resizeChildViews() {
 
         /* Resize the width and height of Cancel Button */
         btnCancel.layoutParams?.width = (resources.displayMetrics.heightPixels / 17.5).toInt()
@@ -155,5 +181,12 @@ class DetailViewDialog: BottomSheetDialogFragment() {
         svProduct.post{
             svProduct.scrollTo(0, DetailViewStatus.currentPositionY!!)
         }
+    }
+
+    /**
+     * Save the positionY of ScrollView
+     */
+    private fun saveScrollViewPositionY() {
+        DetailViewStatus.currentPositionY = svProduct.scrollY
     }
 }
