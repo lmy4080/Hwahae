@@ -104,7 +104,7 @@ class IndexViewAdapter(onIndexViewAdapterListener: IndexViewAdapterListener): Pa
      * Reset the list click time
      */
     fun resetLastClickTime() {
-        mLastClickTime -= CLICK_TIME_INTERVAL
+        mLastClickTime -= CLICK_TIME_INTERVAL - 1000
     }
 
     /**
