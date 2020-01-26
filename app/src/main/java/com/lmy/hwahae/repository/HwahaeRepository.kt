@@ -87,7 +87,7 @@ class HwahaeRepository {
                 HwahaeWebService.service.getProductDetail(productId).apply {
                     withContext(Dispatchers.Main) {
                         NetworkStatus.updateNetworkState(NetworkStatus.State.DONE)
-                        saveProductDetail(this@apply?.body)
+                        saveProductDetail(this@apply.body)
                     }
                 }
             } catch (throwable: Throwable) {
