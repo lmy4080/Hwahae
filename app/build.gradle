@@ -98,10 +98,9 @@ dependencies {
     androidTestImplementation "androidx.test:core:$androidx_test"
     androidTestImplementation "androidx.test.ext:junit-ktx:$androidx_test"
 
-
-
-    implementation 'org.mockito:mockito-core:2.28.+'
+    /**
+     * Mockito
+     */
+    testImplementation 'org.mockito:mockito-inline:3.2.4'
     testImplementation 'android.arch.core:core-testing:1.1.1'
-    androidTestImplementation 'org.mockito:mockito-android:2.8.+'
-    testImplementation 'org.mockito:mockito-inline:2.13.0' // add
 }
