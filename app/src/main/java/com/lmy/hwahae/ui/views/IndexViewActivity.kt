@@ -100,17 +100,14 @@ class IndexViewActivity : AppCompatActivity(), IndexViewAdapterListener {
     }
 
     private fun hideStatusBar() {
-
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
     }
 
     private fun resizeAppBarLayout() {
-
         abl_filter.layoutParams.height = (Resources.getSystem().displayMetrics.heightPixels / 12.5).toInt()
     }
 
     private fun initSpinner() {
-
         val spinnerFilterAdapter = ArrayAdapter(this, R.layout.sp_skin_type_item, SpinnerData.getAllSkinTypes())
         spinnerFilterAdapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice)
         sp_skin_type.adapter = spinnerFilterAdapter
@@ -140,7 +137,6 @@ class IndexViewActivity : AppCompatActivity(), IndexViewAdapterListener {
     }
 
     private fun initSearchView() {
-
         sv_search.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String): Boolean {
                 println("onQueryTextChange")
@@ -164,15 +160,14 @@ class IndexViewActivity : AppCompatActivity(), IndexViewAdapterListener {
     }
 
     private fun initRecyclerView() {
-
         rv_product.layoutManager = GridLayoutManager(this, 2)
         rv_product.isNestedScrollingEnabled = true
         rv_product.setHasFixedSize(false)
         rv_product.adapter = mAdapter
+        mAdapter.resetLastClickTime()
     }
 
     private fun disableAppbarDragEvent() {
-
         if (abl_filter.layoutParams != null) {
             val layoutParams = abl_filter.getLayoutParams() as CoordinatorLayout.LayoutParams
             val appBarLayoutBehaviour = AppBarLayout.Behavior()
