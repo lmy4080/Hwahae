@@ -5,7 +5,8 @@ package com.lmy.hwahae.datasoruce.remote.model
  */
 data class IndexViewDataModel (
     var statusCode: Int,
-    var body: List<IndexViewItem>
+    var body: List<IndexViewItem>,
+    var scanned_count: Int
 )
 
 data class IndexViewItem (
