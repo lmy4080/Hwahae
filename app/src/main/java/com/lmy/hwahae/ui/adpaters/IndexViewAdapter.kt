@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -15,7 +16,6 @@ import com.bumptech.glide.Glide
 import com.lmy.hwahae.R
 import com.lmy.hwahae.datasoruce.remote.model.IndexViewItem
 import com.lmy.hwahae.ui.utils.FormatPlainToPrice
-import kotlinx.android.synthetic.main.layout_index_view_items.view.*
 
 class IndexViewAdapter(onIndexViewAdapterListener: IndexViewAdapterListener): PagedListAdapter<IndexViewItem, IndexViewAdapter.ItemViewHolder>(DIFF_CALLBACK) {
 
@@ -53,8 +53,17 @@ class IndexViewAdapter(onIndexViewAdapterListener: IndexViewAdapterListener): Pa
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private var productId: Int? = null
+        private val llMain: LinearLayout
+        private val ivThumbnail: ImageView
+        private val tvTitle: TextView
+        private val tvPrice: TextView
 
         init {
+            llMain = itemView.findViewById(R.id.ll_item)
+            ivThumbnail = itemView.findViewById(R.id.iv_thumbnail)
+            tvTitle = itemView.findViewById(R.id.tv_title)
+            tvPrice = itemView.findViewById(R.id.tv_price)
+
             var recyclerViewHeight = parentViewGroup.findViewById<RecyclerView>(R.id.rv_product).layoutManager?.height!!
             var appBarLayoutHeight = (Resources.getSystem().displayMetrics.heightPixels / 12.5).toInt()
             recyclerViewHeight += appBarLayoutHeight
@@ -66,7 +75,7 @@ class IndexViewAdapter(onIndexViewAdapterListener: IndexViewAdapterListener): Pa
                  * 1 item per page in row
                  */
                 itemView.layoutParams.height = (recyclerViewHeight / 1)
-                itemView.findViewById<ImageView>(R.id.iv_thumbnail).layoutParams.height = (itemView.layoutParams.height / 1.5).toInt()
+                ivThumbnail.layoutParams.height = (itemView.layoutParams.height / 1.5).toInt()
             }
             else{
                 /**
@@ -75,20 +84,20 @@ class IndexViewAdapter(onIndexViewAdapterListener: IndexViewAdapterListener): Pa
                  * 3 items per page in row
                  */
                 itemView.layoutParams.height = (recyclerViewHeight / 2.5).toInt()
-                itemView.findViewById<ImageView>(R.id.iv_thumbnail).layoutParams.height = (itemView.layoutParams.height / 1.5).toInt()
+                ivThumbnail.layoutParams.height = (itemView.layoutParams.height / 1.5).toInt()
             }
         }
 
         fun bind(product: IndexViewItem?) {
             productId = product?.id
-            itemView.tv_title.text = product?.title
-            itemView.tv_price.text = FormatPlainToPrice.start(product?.price)
+            tvTitle.text = product?.title
+            tvPrice.text = FormatPlainToPrice.start(product?.price)
             Glide.with(itemView)
                 .asBitmap()
                 .load(product?.thumbnail_image?.toUri())
-                .into(itemView.iv_thumbnail)
+                .into(ivThumbnail)
 
-            itemView.ll_item.setOnClickListener { // Prevent from multiple clicking
+            llMain.setOnClickListener { // Prevent from multiple clicking
                 val now = System.currentTimeMillis()
                 if (now - mLastClickTime < CLICK_TIME_INTERVAL) {
                 }
