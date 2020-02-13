@@ -8,18 +8,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.*
+import android.widget.Button
+import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.core.widget.NestedScrollView
 import androidx.dynamicanimation.animation.SpringForce
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.lmy.hwahae.R
+import com.lmy.hwahae.datasoruce.remote.model.DetailViewItem
 import com.lmy.hwahae.ui.status.DetailViewStatus
 import com.lmy.hwahae.ui.utils.AnimationHelper
 import com.lmy.hwahae.ui.utils.FormatPlainToPrice
+import com.lmy.hwahae.viewmodel.DetailViewModel
 
-class DetailViewDialog: DialogFragment() {
+class DetailViewDialog constructor(private val productId: Int) : DialogFragment() {
+
+    private lateinit var mDetailViewModel: DetailViewModel
 
     private lateinit var mView: View
     private lateinit var svProduct: NestedScrollView
@@ -38,6 +47,9 @@ class DetailViewDialog: DialogFragment() {
     ): View? {
         mView = inflater.inflate(R.layout.dialog_detail_view, container, false)
 
+        /* Subscribe Ui */
+        subscribeUi()
+
         /* Apply the animation to this dialog */
         registerDialogAnimation()
 
@@ -52,12 +64,6 @@ class DetailViewDialog: DialogFragment() {
 
         /* Resize the views of dialog dynamically */
         resizeChildViews()
-
-        /* Set data to dialog's views */
-        setData()
-
-        /* Restore the positionY of ScrollView */
-        restoreScrollViewState()
 
         return mView
     }
@@ -81,6 +87,30 @@ class DetailViewDialog: DialogFragment() {
 
         dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+    }
+
+    /**
+     * Subscribe Ui
+     */
+    private fun subscribeUi() {
+        mDetailViewModel = ViewModelProviders.of(this)[DetailViewModel::class.java]
+
+        mDetailViewModel.fetchProductDetail(productId).observe(this, Observer { productDetail ->
+            setScrollY(productDetail.id)
+            setData(productDetail)
+        })
+    }
+
+    /**
+     * Restore the position Y of scrollView
+     */
+    private fun setScrollY(newProductId: Int) {
+        if(DetailViewStatus.oldProductId == newProductId) {
+            restoreScrollViewState(DetailViewStatus.oldScrollY)
+        }
+        else {
+            restoreScrollViewState(0)
+        }
     }
 
     /**
@@ -161,22 +191,22 @@ class DetailViewDialog: DialogFragment() {
     /**
      * Set data to dialog's views
      */
-    private fun setData() {
+    private fun setData(productDetail: DetailViewItem) {
         Glide.with(dialog!!.context)
             .asBitmap()
-            .load(DetailViewStatus.detailViewItem.full_size_image.toUri())
+            .load(productDetail.full_size_image.toUri())
             .into(ivProductImage)
-        tvTitle.text = DetailViewStatus.detailViewItem.title
-        tvPrice.text = FormatPlainToPrice.start(DetailViewStatus.detailViewItem.price)
-        tvDescription.text = DetailViewStatus.detailViewItem.description
+        tvTitle.text = productDetail.title
+        tvPrice.text = FormatPlainToPrice.start(productDetail.price)
+        tvDescription.text = productDetail.description
     }
 
     /**
      * Restore the positionY of ScrollView
      */
-    private fun restoreScrollViewState() {
+    private fun restoreScrollViewState(scrollY: Int?) {
         svProduct.post{
-            svProduct.scrollTo(0, DetailViewStatus.currentPositionY!!)
+            svProduct.scrollTo(0, scrollY!!)
         }
     }
 
@@ -184,6 +214,7 @@ class DetailViewDialog: DialogFragment() {
      * Save the positionY of ScrollView
      */
     private fun saveScrollViewPositionY() {
-        DetailViewStatus.currentPositionY = svProduct.scrollY
+        DetailViewStatus.oldProductId = productId
+        DetailViewStatus.oldScrollY = svProduct.scrollY
     }
 }

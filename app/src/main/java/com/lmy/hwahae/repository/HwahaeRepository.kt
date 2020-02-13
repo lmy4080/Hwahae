@@ -9,12 +9,11 @@ import com.lmy.hwahae.datasoruce.remote.api.HwahaeWebService
 import com.lmy.hwahae.datasoruce.remote.model.DetailViewItem
 import com.lmy.hwahae.datasoruce.remote.model.IndexViewItem
 import com.lmy.hwahae.datasoruce.remote.status.NetworkStatus
-import com.lmy.hwahae.ui.status.DetailViewStatus
 import com.lmy.hwahae.ui.status.IndexViewStatus
 import kotlinx.coroutines.*
 import java.util.concurrent.Executors
 
-class HwahaeRepository {
+object HwahaeRepository {
 
     private var mProductList: LiveData<PagedList<IndexViewItem>>
     private var mIsUpdatedProductDetail = MutableLiveData<Boolean>()
@@ -103,9 +102,11 @@ class HwahaeRepository {
     }
 
     /**
-     * Return the detail of product
+     * Fetch the detail of product
      */
-    fun fetchProductDetail(productId: Int?) {
+    fun fetchProductDetail(productId: Int?): LiveData<DetailViewItem> {
+
+        var productDetail = MutableLiveData<DetailViewItem>()
 
         NetworkStatus.updateNetworkState(NetworkStatus.State.LOADING)
         CoroutineScope(Dispatchers.IO).launch {
@@ -113,7 +114,7 @@ class HwahaeRepository {
                 HwahaeWebService.service.getProductDetail(productId).apply {
                     withContext(Dispatchers.Main) {
                         NetworkStatus.updateNetworkState(NetworkStatus.State.DONE)
-                        saveProductDetail(this@apply.body)
+                        productDetail.value = this@apply.body
                     }
                 }
             } catch (throwable: Throwable) {
@@ -121,18 +122,8 @@ class HwahaeRepository {
                 NetworkStatus.updateNetworkState(NetworkStatus.State.FAILED)
             }
         }
-    }
 
-    /**
-     *  Save the detail of product into singleton object
-     */
-    private fun saveProductDetail(productDetail: DetailViewItem) {
-
-        if(DetailViewStatus.detailViewItem.id != productDetail.id)
-            DetailViewStatus.currentPositionY = 0
-
-        DetailViewStatus.detailViewItem = productDetail
-        mIsUpdatedProductDetail.postValue(true)
+        return productDetail
     }
 
     /**

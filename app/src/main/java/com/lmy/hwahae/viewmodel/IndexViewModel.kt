@@ -4,83 +4,74 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
-import com.lmy.hwahae.datasoruce.remote.status.NetworkStatus
 import com.lmy.hwahae.datasoruce.remote.model.IndexViewItem
+import com.lmy.hwahae.datasoruce.remote.status.NetworkStatus
 import com.lmy.hwahae.repository.HwahaeRepository
 
 class IndexViewModel: ViewModel() {
-
-    private val mHwahaeRepository = HwahaeRepository()
 
     /**
      * Set the typed keyword by user for searching
      */
     fun setSearchKeyword(searchKeyword: String) {
-        mHwahaeRepository.setSearchKeyword(searchKeyword)
+        HwahaeRepository.setSearchKeyword(searchKeyword)
     }
 
     /**
      * Set the state of whether search-keyword updated or not
      */
     fun setIsSearchKeywordSet(aBoolean: Boolean) {
-        mHwahaeRepository.setIsSearchKeywordSet(aBoolean)
+        HwahaeRepository.setIsSearchKeywordSet(aBoolean)
     }
 
     /**
      * Return live-data holding the state of whether search-keyword updated or not
      */
-    fun getIsSearchKeywordSet() = mHwahaeRepository.getIsSearchKeywordSet()
+    fun getIsSearchKeywordSet() = HwahaeRepository.getIsSearchKeywordSet()
 
     /**
      * Set the selected skin-type by user for searching
      */
     fun setSkinType(skinType: String) {
-        mHwahaeRepository.setSkinType(skinType)
+        HwahaeRepository.setSkinType(skinType)
     }
 
     /**
      * Set the state of whether skin-type updated or not
      */
     fun setIsSkinTypeSet(aBoolean: Boolean) {
-        mHwahaeRepository.setIsSkinTypeSet(aBoolean)
+        HwahaeRepository.setIsSkinTypeSet(aBoolean)
     }
 
     /**
      * Return live-data holding the state of whether skin-type updated or not
      */
-    fun getIsSkinTypeSet() = mHwahaeRepository.getIsSkinTypeSet()
+    fun getIsSkinTypeSet() = HwahaeRepository.getIsSkinTypeSet()
 
     /**
      * Return live-data for product list from HwahaeRepository
      */
-    fun getProductList(): LiveData<PagedList<IndexViewItem>> = mHwahaeRepository.getProductList()
+    fun getProductList(): LiveData<PagedList<IndexViewItem>> = HwahaeRepository.getProductList()
 
     /**
      * Return live-data holding the state of network
      */
-    fun getNetworkState(): LiveData<NetworkStatus.State> = mHwahaeRepository.getState()
+    fun getNetworkState(): LiveData<NetworkStatus.State> = HwahaeRepository.getState()
 
     /**
      * Return live-data holding the update state of product detail
      */
-    fun getIsUpdatedProductDetail(): MutableLiveData<Boolean> = mHwahaeRepository.getIsUpdatedProductDetail()
+    fun getIsUpdatedProductDetail(): MutableLiveData<Boolean> = HwahaeRepository.getIsUpdatedProductDetail()
 
     /**
      * Set live-data holding the update state of product detail with flags
      */
     fun setIsUpdatedProductDetail(flag: Boolean) {
-        mHwahaeRepository.setIsUpdatedProductDetail(flag)
-    }
-
-    /**
-     * Fetch the detail of product
-     */
-    fun fetchProductDetail(productId: Int?) {
-        mHwahaeRepository.fetchProductDetail(productId)
+        HwahaeRepository.setIsUpdatedProductDetail(flag)
     }
 
     /**
      * Fetch new data
      */
-    fun fetchProductList() { mHwahaeRepository.fetchProductList() }
+    fun fetchProductList() { HwahaeRepository.fetchProductList() }
 }

@@ -22,7 +22,6 @@ import com.lmy.hwahae.ui.adpaters.IndexViewAdapterListener
 import com.lmy.hwahae.viewmodel.IndexViewModel
 import kotlinx.android.synthetic.main.activity_index_view.*
 
-
 class IndexViewActivity : AppCompatActivity(), IndexViewAdapterListener {
 
     private lateinit var mIndexViewModel: IndexViewModel
@@ -101,14 +100,6 @@ class IndexViewActivity : AppCompatActivity(), IndexViewAdapterListener {
                     showFailedMessage(getString(R.string.network_failed_message))
                 }
                 null -> return@Observer
-            }
-        })
-
-        mIndexViewModel.getIsUpdatedProductDetail().observe(this, Observer { isUpdated ->
-            if (isUpdated) {
-                showDetailViewDialog()
-                mAdapter.resetLastClickTime()
-                mIndexViewModel.setIsUpdatedProductDetail(false)
             }
         })
     }
@@ -204,11 +195,7 @@ class IndexViewActivity : AppCompatActivity(), IndexViewAdapterListener {
     }
 
     override fun sendProductId(productId: Int?) {
-        mIndexViewModel.fetchProductDetail(productId)
-    }
-
-    private fun showDetailViewDialog() {
-        DetailViewDialog().show(supportFragmentManager, "DetailView")
+        DetailViewDialog(productId!!).show(supportFragmentManager, "DetailView")
     }
 
     private fun showProgressBar() {
