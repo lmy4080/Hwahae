@@ -19,6 +19,8 @@ class HwahaeRepository {
     private var mProductList: LiveData<PagedList<IndexViewItem>>
     private var mIsUpdatedProductDetail = MutableLiveData<Boolean>()
     private val mProductDataSourceFactory = HwahaeDataSourceFactory()
+    private var mIsSkinTypeSet = MutableLiveData<Boolean>()
+    private var mIsSearchKeywordSet = MutableLiveData<Boolean>()
 
     /**
      * Create live-data for product list from HwahaeDataSourceFactory
@@ -42,8 +44,20 @@ class HwahaeRepository {
      */
     fun setSearchKeyword(searchKeyword: String) {
         IndexViewStatus.currentSearchKeyword = searchKeyword
-        fetchProductList()
+        mIsSearchKeywordSet.postValue(true)
     }
+
+    /**
+     * Set the state of whether search-keyword updated or not
+     */
+    fun setIsSearchKeywordSet(aBoolean: Boolean) {
+        mIsSearchKeywordSet.postValue(aBoolean)
+    }
+
+    /**
+     * Return live-data holding the state of whether search-keyword updated or not
+     */
+    fun getIsSearchKeywordSet() = mIsSearchKeywordSet
 
     /**
      * Set the selected skin-type for searching
@@ -51,8 +65,20 @@ class HwahaeRepository {
     fun setSkinType(skinType: String) {
         IndexViewStatus.currentSkinType = skinType
         IndexViewStatus.currentSearchKeyword = null
-        fetchProductList()
+        mIsSkinTypeSet.postValue(true)
     }
+
+    /**
+     * Set the state of whether skin-type updated or not
+     */
+    fun setIsSkinTypeSet(aBoolean: Boolean) {
+        mIsSkinTypeSet.postValue(aBoolean)
+    }
+
+    /**
+     * Return live-data holding the state of whether skin-type updated or not
+     */
+    fun getIsSkinTypeSet() = mIsSkinTypeSet
 
     /**
      * Return live-data for product list from HwahaeRepository
@@ -112,7 +138,7 @@ class HwahaeRepository {
     /**
      * Fetch new data
      */
-    private fun fetchProductList() { mProductList.value?.dataSource?.invalidate() }
+    fun fetchProductList() { mProductList.value?.dataSource?.invalidate() }
 }
 
 

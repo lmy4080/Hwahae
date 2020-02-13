@@ -1,6 +1,7 @@
 package com.lmy.hwahae.datasoruce.remote
 
 import androidx.paging.PageKeyedDataSource
+import com.google.gson.JsonSyntaxException
 import com.lmy.hwahae.datasoruce.remote.api.HwahaeWebService
 import com.lmy.hwahae.datasoruce.remote.model.IndexViewItem
 import com.lmy.hwahae.datasoruce.remote.status.NetworkStatus
@@ -21,17 +22,25 @@ class HwahaeDataSource: PageKeyedDataSource<Int, IndexViewItem>() {
          * Handle the coroutine exception
          */
         val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
-            NetworkStatus.updateNetworkState(NetworkStatus.State.RETRY)
 
             when(throwable){
                 /* Socket Time-Out Exception */
-                is SocketTimeoutException -> loadInitial(params,callback)
-
+                is SocketTimeoutException -> {
+                    NetworkStatus.updateNetworkState(NetworkStatus.State.RETRY)
+                    loadInitial(params,callback)
+                }
+                /* Search Being Exhausted */
+                is JsonSyntaxException -> {
+                    NetworkStatus.updateNetworkState(NetworkStatus.State.DONE)
+                }
                 /* other Exceptions */
                 // is...
 
                 /* log an error */
-                else -> throwable.printStackTrace()
+                else -> {
+                    NetworkStatus.updateNetworkState(NetworkStatus.State.FAILED)
+                    throwable.printStackTrace()
+                }
             }
         }
 
@@ -55,17 +64,25 @@ class HwahaeDataSource: PageKeyedDataSource<Int, IndexViewItem>() {
          * Handle the coroutine exception
          */
         val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
-            NetworkStatus.updateNetworkState(NetworkStatus.State.RETRY)
 
             when(throwable){
                 /* Socket Time-Out Exception */
-                is SocketTimeoutException -> loadAfter(params,callback)
-
+                is SocketTimeoutException -> {
+                    NetworkStatus.updateNetworkState(NetworkStatus.State.RETRY)
+                    loadAfter(params,callback)
+                }
+                /* Search Being Exhausted */
+                is JsonSyntaxException -> {
+                    NetworkStatus.updateNetworkState(NetworkStatus.State.DONE)
+                }
                 /* other Exceptions */
                 // is...
 
                 /* log an error */
-                else -> throwable.printStackTrace()
+                else -> {
+                    NetworkStatus.updateNetworkState(NetworkStatus.State.FAILED)
+                    throwable.printStackTrace()
+                }
             }
         }
 

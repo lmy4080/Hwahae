@@ -19,9 +19,6 @@ import com.lmy.hwahae.ui.status.DetailViewStatus
 import com.lmy.hwahae.ui.utils.AnimationHelper
 import com.lmy.hwahae.ui.utils.FormatPlainToPrice
 
-
-
-
 class DetailViewDialog: DialogFragment() {
 
     private lateinit var mView: View

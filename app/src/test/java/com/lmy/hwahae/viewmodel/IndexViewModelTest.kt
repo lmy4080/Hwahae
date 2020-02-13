@@ -14,10 +14,10 @@ import org.mockito.Spy
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class SharedViewModelTest {
+class IndexViewModelTest {
 
     @Spy
-    val sharedViewModel = SharedViewModel()
+    val indexViewModel = IndexViewModel()
 
     @get: Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -30,7 +30,7 @@ class SharedViewModelTest {
     fun setSearchKeyword() {
 
         val testSearchKeyword = "This is a text line"
-        sharedViewModel.setSearchKeyword(testSearchKeyword)
+        indexViewModel.setSearchKeyword(testSearchKeyword)
         Assert.assertEquals(testSearchKeyword, IndexViewStatus.currentSearchKeyword)
     }
 
@@ -38,19 +38,19 @@ class SharedViewModelTest {
     fun setSkinType() {
 
         var testSkinType = "0"
-        sharedViewModel.setSkinType(testSkinType)
+        indexViewModel.setSkinType(testSkinType)
         Assert.assertEquals("oily", IndexViewStatus.currentSkinType)
 
         testSkinType = "1"
-        sharedViewModel.setSkinType(testSkinType)
+        indexViewModel.setSkinType(testSkinType)
         Assert.assertEquals("oily",IndexViewStatus.currentSkinType)
 
         testSkinType = "2"
-        sharedViewModel.setSkinType(testSkinType)
+        indexViewModel.setSkinType(testSkinType)
         Assert.assertEquals("dry", IndexViewStatus.currentSkinType)
 
         testSkinType = "3"
-        sharedViewModel.setSkinType(testSkinType)
+        indexViewModel.setSkinType(testSkinType)
         Assert.assertEquals("sensitive", IndexViewStatus.currentSkinType)
     }
 
@@ -59,20 +59,20 @@ class SharedViewModelTest {
 
         val testState = MutableLiveData<NetworkStatus.State>()
         testState.postValue(NetworkStatus.State.LOADING)
-        Mockito.`when`(sharedViewModel.getNetworkState()).thenReturn(testState)
-        Assert.assertEquals(sharedViewModel.getNetworkState().value, testState.value)
+        Mockito.`when`(indexViewModel.getNetworkState()).thenReturn(testState)
+        Assert.assertEquals(indexViewModel.getNetworkState().value, testState.value)
 
         testState.postValue(NetworkStatus.State.RETRY)
-        Mockito.`when`(sharedViewModel.getNetworkState()).thenReturn(testState)
-        Assert.assertEquals(sharedViewModel.getNetworkState().value, testState.value)
+        Mockito.`when`(indexViewModel.getNetworkState()).thenReturn(testState)
+        Assert.assertEquals(indexViewModel.getNetworkState().value, testState.value)
 
         testState.postValue(NetworkStatus.State.FAILED)
-        Mockito.`when`(sharedViewModel.getNetworkState()).thenReturn(testState)
-        Assert.assertEquals(sharedViewModel.getNetworkState().value, testState.value)
+        Mockito.`when`(indexViewModel.getNetworkState()).thenReturn(testState)
+        Assert.assertEquals(indexViewModel.getNetworkState().value, testState.value)
 
         testState.postValue(NetworkStatus.State.DONE)
-        Mockito.`when`(sharedViewModel.getNetworkState()).thenReturn(testState)
-        Assert.assertEquals(sharedViewModel.getNetworkState().value, testState.value)
+        Mockito.`when`(indexViewModel.getNetworkState()).thenReturn(testState)
+        Assert.assertEquals(indexViewModel.getNetworkState().value, testState.value)
     }
 
     @Test
@@ -80,23 +80,23 @@ class SharedViewModelTest {
 
         val testUpdateFlag = MutableLiveData<Boolean>()
         testUpdateFlag.postValue(true)
-        Mockito.`when`(sharedViewModel.getIsUpdatedProductDetail()).thenReturn(testUpdateFlag)
-        Assert.assertEquals(sharedViewModel.getIsUpdatedProductDetail().value, testUpdateFlag.value)
+        Mockito.`when`(indexViewModel.getIsUpdatedProductDetail()).thenReturn(testUpdateFlag)
+        Assert.assertEquals(indexViewModel.getIsUpdatedProductDetail().value, testUpdateFlag.value)
 
         testUpdateFlag.postValue(false)
-        Mockito.`when`(sharedViewModel.getIsUpdatedProductDetail()).thenReturn(testUpdateFlag)
-        Assert.assertEquals(sharedViewModel.getIsUpdatedProductDetail().value, testUpdateFlag.value)
+        Mockito.`when`(indexViewModel.getIsUpdatedProductDetail()).thenReturn(testUpdateFlag)
+        Assert.assertEquals(indexViewModel.getIsUpdatedProductDetail().value, testUpdateFlag.value)
     }
 
     @Test
     fun setIsUpdatedProductDetail() {
 
         var testFlag = true
-        sharedViewModel.setIsUpdatedProductDetail(testFlag)
-        Assert.assertEquals(sharedViewModel.getIsUpdatedProductDetail().value, testFlag)
+        indexViewModel.setIsUpdatedProductDetail(testFlag)
+        Assert.assertEquals(indexViewModel.getIsUpdatedProductDetail().value, testFlag)
 
         testFlag = false
-        sharedViewModel.setIsUpdatedProductDetail(testFlag)
-        Assert.assertEquals(sharedViewModel.getIsUpdatedProductDetail().value, testFlag)
+        indexViewModel.setIsUpdatedProductDetail(testFlag)
+        Assert.assertEquals(indexViewModel.getIsUpdatedProductDetail().value, testFlag)
     }
 }

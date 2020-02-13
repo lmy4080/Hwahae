@@ -2,10 +2,12 @@ package com.lmy.hwahae.ui.views
 
 import android.content.res.Resources
 import android.os.Bundle
+import android.text.InputFilter
 import android.view.View
 import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -17,12 +19,13 @@ import com.lmy.hwahae.R
 import com.lmy.hwahae.datasoruce.remote.status.NetworkStatus
 import com.lmy.hwahae.ui.adpaters.IndexViewAdapter
 import com.lmy.hwahae.ui.adpaters.IndexViewAdapterListener
-import com.lmy.hwahae.viewmodel.SharedViewModel
+import com.lmy.hwahae.viewmodel.IndexViewModel
 import kotlinx.android.synthetic.main.activity_index_view.*
+
 
 class IndexViewActivity : AppCompatActivity(), IndexViewAdapterListener {
 
-    private lateinit var mIndexViewModel: SharedViewModel
+    private lateinit var mIndexViewModel: IndexViewModel
     private var mAdapter = IndexViewAdapter(this)
     private var isFirstLoaded: Boolean = true
 
@@ -67,20 +70,35 @@ class IndexViewActivity : AppCompatActivity(), IndexViewAdapterListener {
     }
 
     private fun subscribeUi() {
-        mIndexViewModel = ViewModelProviders.of(this)[SharedViewModel::class.java]
+        mIndexViewModel = ViewModelProviders.of(this)[IndexViewModel::class.java]
 
         mIndexViewModel.getProductList().observe(this, Observer { itemList ->
             mAdapter.submitList(itemList)
         })
 
+        mIndexViewModel.getIsSkinTypeSet().observe(this, Observer { isSkinTypeSet ->
+            if(isSkinTypeSet) {
+                mIndexViewModel.fetchProductList()
+                mIndexViewModel.setIsSkinTypeSet(false)
+            }
+        })
+
+        mIndexViewModel.getIsSearchKeywordSet().observe(this, Observer { isSearchKeywordSet ->
+            if(isSearchKeywordSet) {
+                mIndexViewModel.fetchProductList()
+                mIndexViewModel.setIsSearchKeywordSet(false)
+            }
+        })
+
         mIndexViewModel.getNetworkState().observe(this, Observer { networkState ->
+            println("$networkState")
             when(networkState) {
                 NetworkStatus.State.LOADING -> showProgressBar()
                 NetworkStatus.State.RETRY -> showProgressBar()
                 NetworkStatus.State.DONE -> hideProgressBar()
                 NetworkStatus.State.FAILED -> {
                     hideProgressBar()
-                    showFailedMessage("상품 정보를 받아오는데 실패하였습니다. 잠시 후 다시 시도해주세요.")
+                    showFailedMessage(getString(R.string.network_failed_message))
                 }
                 null -> return@Observer
             }
@@ -137,6 +155,9 @@ class IndexViewActivity : AppCompatActivity(), IndexViewAdapterListener {
     }
 
     private fun initSearchView() {
+        val et = sv_search.findViewById(R.id.search_src_text) as TextView
+        et.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(10))
+
         sv_search.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String): Boolean {
                 println("onQueryTextChange")

@@ -8,7 +8,7 @@ import com.lmy.hwahae.datasoruce.remote.status.NetworkStatus
 import com.lmy.hwahae.datasoruce.remote.model.IndexViewItem
 import com.lmy.hwahae.repository.HwahaeRepository
 
-class SharedViewModel: ViewModel() {
+class IndexViewModel: ViewModel() {
 
     private val mHwahaeRepository = HwahaeRepository()
 
@@ -20,11 +20,35 @@ class SharedViewModel: ViewModel() {
     }
 
     /**
+     * Set the state of whether search-keyword updated or not
+     */
+    fun setIsSearchKeywordSet(aBoolean: Boolean) {
+        mHwahaeRepository.setIsSearchKeywordSet(aBoolean)
+    }
+
+    /**
+     * Return live-data holding the state of whether search-keyword updated or not
+     */
+    fun getIsSearchKeywordSet() = mHwahaeRepository.getIsSearchKeywordSet()
+
+    /**
      * Set the selected skin-type by user for searching
      */
     fun setSkinType(skinType: String) {
         mHwahaeRepository.setSkinType(skinType)
     }
+
+    /**
+     * Set the state of whether skin-type updated or not
+     */
+    fun setIsSkinTypeSet(aBoolean: Boolean) {
+        mHwahaeRepository.setIsSkinTypeSet(aBoolean)
+    }
+
+    /**
+     * Return live-data holding the state of whether skin-type updated or not
+     */
+    fun getIsSkinTypeSet() = mHwahaeRepository.getIsSkinTypeSet()
 
     /**
      * Return live-data for product list from HwahaeRepository
@@ -54,4 +78,9 @@ class SharedViewModel: ViewModel() {
     fun fetchProductDetail(productId: Int?) {
         mHwahaeRepository.fetchProductDetail(productId)
     }
+
+    /**
+     * Fetch new data
+     */
+    fun fetchProductList() { mHwahaeRepository.fetchProductList() }
 }
