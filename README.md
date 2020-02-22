@@ -18,7 +18,7 @@ Repository for the Hwahae Android App
 
 ## About
 
-버드뷰(화해) 블라인드 채용 - 서버, 앱 개발 챌린지
+버드뷰(화해) 블라인드 채용 - 서버, 앱 개발 챌린지 과제
 
 ## App Features
 
@@ -38,19 +38,53 @@ Repository for the Hwahae Android App
 ## Project Folder Structure
 
 ```
-
+src/
+├── datasoruce
+│   ├── local
+│   └── remote
+│       ├── HwahaeDataSource.kt
+│       ├── HwahaeDataSourceFactory.kt
+│       ├── api
+│       │   └── HwahaeWebService.kt
+│       ├── model
+│       │   └── ServerResponseModel.kt
+│       └── status
+│           └── NetworkStatus.kt
+├── repository
+│   └── HwahaeRepository.kt
+├── ui
+│   ├── adpaters
+│   │   ├── IndexViewAdapter.kt
+│   │   └── IndexViewAdapterListener.kt
+│   ├── status
+│   │   ├── DetailViewStatus.kt
+│   │   └── IndexViewStatus.kt
+│   ├── utils
+│   │   ├── AnimationHelper.kt
+│   │   └── FormatPlainToPrice.kt
+│   └── views
+│       ├── DetailViewDialog.kt
+│       ├── IndexViewActivity.kt
+│       ├── IndexViewCustomSpinner.kt
+│       └── SpinnerData.kt
+└── viewmodel
+    ├── DetailViewModel.kt
+    └── IndexViewModel.kt
 ```
 
 ## Development
-
-
-## Dependencies
-
-|   **Dependency**    | **Link**                                                                                      |
-|---------------------|-----------------------------------------------------------------------------------------------|
-|                     |                                                                                               |
-
-## Permissions Required
+ - 사용 언어: Kotlin
+ - MVVM(Model-View-ViewModel Pattern)
+ - 활용 기술 스택
+   - CoordinateLayout, AppbarLayout, CollapsingToolbar, Toolbar, RecyclerView
+   - ViewModel and LiveData
+   - Paging Library
+   - Coroutine
+   - Retrofit
+   - Glide
+   - SpringAnimation
+   - Espresso
+   - Mockito
 
 ## API Response, /GET
 
@@ -156,7 +190,7 @@ Repository for the Hwahae Android App
   } 
   ```
 
-## Developers
+## Developer
 
 ### Android app
 - 이민영 ([@Min Young Lee](https://github.com/lmy4080))
