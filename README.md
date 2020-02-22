@@ -35,12 +35,6 @@ Repository for the Hwahae Android App
 |                        | 상품 클릭 시 상세 정보 페이지로 이동                                      | :heavy_check_mark: |
 
 
-## App Composition
-
-- Code : 
-- Model :
-- Resource :
-
 ## Project Folder Structure
 
 ```
@@ -57,6 +51,110 @@ Repository for the Hwahae Android App
 |                     |                                                                                               |
 
 ## Permissions Required
+
+## API Response, /GET
+
+- Base Url: https://6uqljnm1pb.execute-api.ap-northeast-2.amazonaws.com/prod/
+
+- Parameter: 'skin_type', 
+  - Value: 'oily(default)'
+  - Ex) Response, https://6uqljnm1pb.execute-api.ap-northeast-2.amazonaws.com/prod/products?skin_type=oily
+  
+  ```
+  {
+   "statusCode": 200,
+   "body": [
+     {
+       "id": 536,
+       "price": "19650",
+       "oily_score": 100,
+       "thumbnail_image": "https://grepp-programmers-challenges.s3.ap-northeast-2.amazonaws.com/2020-birdview/thumbnail/ef792a79-435c-44eb-b9dc-285750ae1517.jpg",
+       "title": "플라멜엠디 밀크러스트필 마일드 워시오프 앰플 5ml x 2개"
+     },
+     ...
+   "scanned_count": 20
+  } 
+  ```
+ 
+- Parameter: 'skin_type', 
+  - Value: 'dry'
+  - Ex) Response, https://6uqljnm1pb.execute-api.ap-northeast-2.amazonaws.com/prod/products?skin_type=dry
+
+  ```
+  {
+   "statusCode": 200,
+   "body": [
+     {
+      "dry_score": 100,
+      "id": 873,
+      "price": "95410",
+      "thumbnail_image": "https://grepp-programmers-challenges.s3.ap-northeast-2.amazonaws.com/2020-birdview/thumbnail/f5177afd-60b4-4cae-ac33-8560a2742c12.jpg",
+      "title": "피토메르 아빼장 마스크 150ml"
+     },
+     ...
+   "scanned_count": 20
+  } 
+  ```
+  
+- Parameter: 'skin_type', 
+  - Value: 'sensitive'
+  - Ex) Response, https://6uqljnm1pb.execute-api.ap-northeast-2.amazonaws.com/prod/products?skin_type=sensitive
+  
+  ```
+  {
+   "statusCode": 200,
+   "body": [
+     {
+      "sensitive_score": 100,
+      "id": 828,
+      "price": "3560",
+      "thumbnail_image": "https://grepp-programmers-challenges.s3.ap-northeast-2.amazonaws.com/2020-birdview/thumbnail/27feebd6-d863-48e6-85b8-336778f3c455.jpg",
+      "title": "엔오에이치제이 코리안 에스테틱 마스크 포어버블"
+     },
+     ...
+   "scanned_count": 20
+  } 
+  ```
+  
+- Parameter: 'page', 
+  - Value: '1'
+  - Ex) Response, https://6uqljnm1pb.execute-api.ap-northeast-2.amazonaws.com/prod/products?skin_type=oily&page=1
+  
+  ```
+  {
+   "statusCode": 200,
+   "body": [
+     {
+       "id": 536,
+       "price": "19650",
+       "oily_score": 100,
+       "thumbnail_image": "https://grepp-programmers-challenges.s3.ap-northeast-2.amazonaws.com/2020-birdview/thumbnail/ef792a79-435c-44eb-b9dc-285750ae1517.jpg",
+       "title": "플라멜엠디 밀크러스트필 마일드 워시오프 앰플 5ml x 2개"
+     },
+     ...
+   "scanned_count": 20
+  } 
+  ```
+
+- Parameter: 'search', 
+  - Value: '150ml'
+  - Ex) Response, https://6uqljnm1pb.execute-api.ap-northeast-2.amazonaws.com/prod/products?search=150ml
+  
+  ```
+  {
+   "statusCode": 200,
+   "body": [
+     {
+      "id": 710,
+      "price": "9600",
+      "oily_score": 94,
+      "thumbnail_image": "https://grepp-programmers-challenges.s3.ap-northeast-2.amazonaws.com/2020-birdview/thumbnail/7542e592-878e-49c4-9f61-65ab23b9ac72.jpg",
+      "title": "오딧세이 블랙 클렌징 폼 150ml"
+     },
+     ...
+   "scanned_count": 20
+  } 
+  ```
 
 ## Developers
 
